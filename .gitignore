@@ -6,3 +6,4 @@ shared/
 client/public/__manus__/
 client/src/components/ManusDialog.tsx
 .manus-logs/
+.vercel
