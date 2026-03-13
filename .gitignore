@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.vercel/
+server/
+shared/
+client/public/__manus__/
+client/src/components/ManusDialog.tsx
+.manus-logs/
