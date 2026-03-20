@@ -1,20 +1,28 @@
-/*
- * ULKATCHO FIRST NATION — Job Detail Page (Placeholder)
- * Will be connected to backend via Claude later.
- * For now shows the job title and a placeholder description.
- */
-
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link, useParams } from "wouter";
 import { Briefcase, ArrowLeft, MapPin, Clock, Mail } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
+import { getJobBySlug, type Job } from "@/lib/jobs";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/hero-landscape_dc4795fe.jpg";
 
 export default function JobDetail() {
   const params = useParams<{ slug: string }>();
-  const jobTitle = decodeURIComponent(params.slug || "")
+  const [job, setJob] = useState<Job | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      const data = await getJobBySlug(params.slug || "");
+      setJob(data);
+      setLoading(false);
+    }
+    load();
+  }, [params.slug]);
+
+  const jobTitle = job?.title ?? decodeURIComponent(params.slug || "")
     .replace(/-/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
@@ -75,10 +83,10 @@ export default function JobDetail() {
               </h2>
               <div className="flex flex-wrap gap-4 mt-2">
                 <span className="flex items-center gap-1.5 text-sm" style={{ fontFamily: "Lora, serif", color: "#555" }}>
-                  <MapPin size={14} style={{ color: "#8b6420" }} /> Anahim Lake, BC
+                  <MapPin size={14} style={{ color: "#8b6420" }} /> {job?.location ?? "Anahim Lake, BC"}
                 </span>
                 <span className="flex items-center gap-1.5 text-sm" style={{ fontFamily: "Lora, serif", color: "#555" }}>
-                  <Clock size={14} style={{ color: "#8b6420" }} /> Open Until Filled
+                  <Clock size={14} style={{ color: "#8b6420" }} /> {job?.closing_date ?? "Open Until Filled"}
                 </span>
               </div>
             </div>
@@ -88,11 +96,19 @@ export default function JobDetail() {
 
           <div className="space-y-5" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1rem", lineHeight: 1.75 }}>
             <p>
-              Full job description and requirements will be available soon. Ulkatcho First Nation gives priority consideration to qualified Ulkatcho First Nation members for all employment opportunities.
+              {job?.description ?? "Full job description and requirements will be available soon. Ulkatcho First Nation gives priority consideration to qualified Ulkatcho First Nation members for all employment opportunities."}
             </p>
-            <p>
-              For more information about this position, please contact the Operations Manager.
-            </p>
+            {job?.requirements && job.requirements.length > 0 && (
+              <div>
+                <h3 className="mb-2 font-semibold" style={{ color: "#1a2e5a" }}>Requirements</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  {job.requirements.map((req, i) => <li key={i}>{req}</li>)}
+                </ul>
+              </div>
+            )}
+            {!job?.requirements?.length && (
+              <p>For more information about this position, please contact the Operations Manager.</p>
+            )}
           </div>
 
           <div className="w-full h-px my-6" style={{ backgroundColor: "#dce6ef" }} />

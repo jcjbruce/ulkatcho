@@ -11,13 +11,15 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import DocumentPreview, { useDocumentPreview } from "@/components/DocumentPreview";
 import { FileText, Filter, Eye } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/hero-landscape_dc4795fe.jpg";
 
 type DocItem = {
+  id?: string;
   title: string;
   url: string;
-  type: "PDF" | "PNG" | "DOCX";
+  file_type: string;
   category: string;
 };
 
@@ -29,10 +31,10 @@ const categories = [
   "Newsletters",
   "Elections",
   "Community Programs",
+  "Business & Economic Development",
 ];
 
-const allDocs: DocItem[] = [
-  // ── 1) Governance & Council ──
+const _STATIC_REMOVED = [
   { title: "BCR: Health Evaluation Plan Approved", url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/BCR%202024-74%20UFN%20HEALTH%20AND%20WELLNESS%20EVALUATION%20PLAN%20FINALIZED_19f42b4a.pdf", type: "PDF", category: "Governance & Council" },
   { title: "BCR: Health Governance Appointments", url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/BCR%202024-75%20UFN%20HEALTH%20GOVERNANCE%20APPOINTMENTS%20TO%20IRNE%20AND%20IRNTT%20_c98daa45.pdf", type: "PDF", category: "Governance & Council" },
   { title: "Letter from Chief and Council", url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/UFN%20COMMUNITY%20LETTER%20FROM%20UFN%20CHIEF%20AND%20COUNCIL_8d7ea219.pdf", type: "PDF", category: "Governance & Council" },
@@ -167,7 +169,22 @@ function DocCard({ doc, onPreview }: { doc: DocItem; onPreview: (url: string, ti
 export default function Resources() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [allDocs, setAllDocs] = useState<DocItem[]>([]);
   const { preview, openPreview, closePreview } = useDocumentPreview();
+
+  useEffect(() => {
+    async function load() {
+      const { data } = await supabase
+        .from("resources")
+        .select("*")
+        .eq("is_active", true)
+        .order("category")
+        .order("sort_order")
+        .order("title");
+      setAllDocs((data ?? []).map((r: any) => ({ title: r.title, url: r.url, file_type: r.file_type, category: r.category })));
+    }
+    load();
+  }, []);
 
   const filteredDocs = allDocs
     .filter((doc) => {

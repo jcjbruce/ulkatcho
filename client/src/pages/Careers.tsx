@@ -11,45 +11,30 @@ import PageHero from "@/components/PageHero";
 import { Link } from "wouter";
 import { Briefcase, ChevronRight, Users, Star, Search } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
+import { getCommunityJobs, getPartnerJobs, type Job } from "@/lib/jobs";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/ulkatcho-sunset-enhanced_6d1d73f6.jpg";
-
-const allJobs = [
-  "Care Aid",
-  "Casual Field Laborers / Supervisors",
-  "Chunta Board of Directors",
-  "Chunta Resource Manager",
-  "Community Nurse",
-  "Daycare Sub",
-  "Director of Child, Family & Social Development",
-  "Drug and Alcohol Worker",
-  "Education Assistant Sub",
-  "Homemaker",
-  "Medical Van Driver Clinic",
-  "Mental Health Worker",
-  "Primary Cleaner Clinic",
-  "Renovation Team Members",
-  "Social Development Intake Worker",
-  "Social Development Outreach Worker",
-  "Social Worker (Bachelors)",
-  "Sub – Nutritionist/Custodian",
-  "Sub Cleaner for Band Office",
-  "Sub Cleaner for Clinic",
-  "Temporary On-Call Positions",
-  "UFN Repair and Maintenance Worker",
-  "Ulkatcho Fire Chief",
-  "Ulkatcho First Nation Youth Council",
-  "Water and Wastewater System Operator",
-  "Whitebark Pine Technician",
-];
 
 const filterTypes = ["Freelance", "Full Time", "Internship", "Part Time", "Temporary"];
 
 export default function Careers() {
   const [keywords, setKeywords] = useState("");
+  const [allJobs, setAllJobs] = useState<Job[]>([]);
+  const [partnerJobs, setPartnerJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<Record<string, boolean>>(
     Object.fromEntries(filterTypes.map((f) => [f, true]))
   );
+
+  useEffect(() => {
+    async function load() {
+      const [community, partners] = await Promise.all([getCommunityJobs(), getPartnerJobs()]);
+      setAllJobs(community);
+      setPartnerJobs(partners);
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,7 +46,7 @@ export default function Careers() {
   }, []);
 
   const filteredJobs = allJobs.filter((job) =>
-    keywords ? job.toLowerCase().includes(keywords.toLowerCase()) : true
+    keywords ? job.title.toLowerCase().includes(keywords.toLowerCase()) : true
   );
 
   const toggleFilter = (name: string) => setFilters((prev) => ({ ...prev, [name]: !prev[name] }));
@@ -142,10 +127,10 @@ export default function Careers() {
 
           {/* Job listings */}
           <div className="ufn-card" style={{ borderRadius: "0" }}>
-            {filteredJobs.map((job) => {
-              const slug = job.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-              return (
-                <Link key={job} href={`/careers/${slug}`}>
+            {loading ? (
+              <div className="py-8 text-center text-sm" style={{ color: "#555" }}>Loading jobs...</div>
+            ) : filteredJobs.map((job) => (
+                <Link key={job.id} href={`/careers/${job.slug}`}>
                   <div
                     className="flex items-center gap-3 py-4 px-5 transition-colors duration-150 group cursor-pointer"
                     style={{ borderBottom: "1px solid #eef2f6" }}
@@ -154,16 +139,15 @@ export default function Careers() {
                   >
                     <Briefcase size={16} style={{ color: "#c9a227", flexShrink: 0 }} />
                     <span className="flex-1 font-medium" style={{ fontFamily: "Lora, serif", fontSize: "0.95rem", color: "#1a2e5a" }}>
-                      {job}
+                      {job.title}
                     </span>
                     <span className="text-sm hidden md:block" style={{ fontFamily: "Lora, serif", color: "#8b6420", minWidth: "80px" }}>
-                      Anahim Lake
+                      {job.location}
                     </span>
                     <ChevronRight size={16} style={{ color: "#c9a227", flexShrink: 0 }} />
                   </div>
                 </Link>
-              );
-            })}
+              ))}
           </div>
         </section>
 

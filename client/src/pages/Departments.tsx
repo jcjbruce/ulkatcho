@@ -4,11 +4,12 @@
  * Layout: Grouped table with department headers matching screenshot exactly
  */
 
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SimplePageHeader from "@/components/SimplePageHeader";
 import ProtectedEmail from "@/components/ProtectedEmail";
-
+import { supabase } from "@/lib/supabase";
 
 type DeptRow = {
   name: string;
@@ -22,61 +23,31 @@ type DeptGroup = {
   rows: DeptRow[];
 };
 
-const departments: DeptGroup[] = [
-  {
-    heading: "Education Department",
-    rows: [
-      { name: "Joy Holte", title: "Director of Education", phone: "250-742-3260 Ext. 210", email: "educationdirector@ulkatcho.ca" },
-      { name: "Corrine Cahoose", title: "Post Secondary", phone: "250-742-3260 Ext. 209", email: "postsecondary@ulkatcho.ca" },
-      { name: "", title: "K – 12 Education Liaison", phone: "250-742-3260 Ext. 212", email: "k-12liaison@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Housing & Capital Works",
-    rows: [
-      { name: "Omid Zareian", title: "Asset Manager", phone: "250-742-3288 ext. 208", email: "assets@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Health Clinic",
-    rows: [
-      { name: "", title: "Director of Health", phone: "250-742-2090", email: "healthdirector@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Natural Resources",
-    rows: [
-      { name: "Alyisha Knapp", title: "Director of Natural Resources", phone: "250-742-3288 ext 205", email: "naturalresources@ulkatcho.ca" },
-      { name: "Breanna Charleyboy", title: "Referrals Officer", phone: "250-742-3288 ext 221", email: "referrals@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Administration",
-    rows: [
-      { name: "", title: "Band Manager", phone: "250-742-3288 Ext. 218", email: "OperationsManager@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Finance",
-    rows: [
-      { name: "", title: "Director of Finance", phone: "250-742-3288 Ext. 202", email: "financedirector@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Social Development / Family And Children",
-    rows: [
-      { name: "Clara Cahoose", title: "Social Assistant Clerk", phone: "250-742-3260 Ext. 215", email: "saintake@ulkatcho.ca" },
-    ],
-  },
-  {
-    heading: "Indian Registry",
-    rows: [
-      { name: "Liz Anderson", title: "Indian Registry Administrator", phone: "250-742-3288 Ext. 220", email: "landerson@ulkatcho.ca" },
-    ],
-  },
-];
-
 export default function Departments() {
+  const [departments, setDepartments] = useState<DeptGroup[]>([]);
+
+  useEffect(() => {
+    async function load() {
+      const { data } = await supabase
+        .from("departments")
+        .select("*, department_staff(*)")
+        .order("sort_order")
+        .order("sort_order", { referencedTable: "department_staff" });
+      setDepartments(
+        (data ?? []).map((d: any) => ({
+          heading: d.heading,
+          rows: (d.department_staff ?? []).map((s: any) => ({
+            name: s.name,
+            title: s.title,
+            phone: s.phone,
+            email: s.email,
+          })),
+        }))
+      );
+    }
+    load();
+  }, []);
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#c8d5e0" }}>
       <Navbar />

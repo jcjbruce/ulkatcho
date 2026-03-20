@@ -4,26 +4,32 @@
  * Hero with breadcrumb, scroll reveals, ceremony photos, contact table
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SimplePageHeader from "@/components/SimplePageHeader";
 import { Link } from "wouter";
 import ProtectedEmail from "@/components/ProtectedEmail";
+import { supabase } from "@/lib/supabase";
 
 const CNC_PHOTO_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/cnc-photo1-oath_55a9dac7.jpg";
 const CNC_PHOTO_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/cnc-photo2-signing_3148f0c2.jpg";
 
-const council = [
-  { name: "Chief Derech Sill", email: "chief@ulkatcho.ca" },
-  { name: "Councillor Breanna Charleyboy", email: "breannacharleyboy@ulkatcho.ca" },
-  { name: "Councillor Brad Jimmie", email: "bradleyjimmie@ulkatcho.ca" },
-  { name: "Councillor Stella West", email: "stellawest@ulkatcho.ca" },
-  { name: "Councillor Lorne Cahoose", email: "lornecahoose@ulkatcho.ca" },
-  { name: "Councillor Corinne Cahoose", email: "ccahoose@ulkatcho.ca" },
-];
-
 export default function ChiefCouncil() {
+  const [council, setCouncil] = useState<{ name: string; email: string }[]>([]);
+
+  useEffect(() => {
+    async function load() {
+      const { data } = await supabase
+        .from("council_members")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order");
+      setCouncil((data ?? []).map((m: any) => ({ name: m.name, email: m.email })));
+    }
+    load();
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("revealed"); }); },
