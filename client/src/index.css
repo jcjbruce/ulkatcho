@@ -1,20 +1,20 @@
 /* ============================================================
-   ULKATCHO FIRST NATION — Design System
-   Theme: "River Stone & Birch" — Pacific Northwest Land Journal
+   ULKATCHO FIRST NATION — Design System v2
+   Theme: "Steel Blue & Gold" — V2.png Logo Palette
    
-   Color Philosophy:
-   - Background: warm birch white #F7F2E8 (aged paper, not sterile)
-   - Deep forest: #1C3A1A (primary dark, nav, headings)
-   - Earth brown: #7A4F2E (warm secondary, borders)
-   - Indian paintbrush: #B8341B (accent, CTAs, emergency)
-   - Stone grey: #8A8478 (muted text, captions)
-   - Obsidian: #1A1A18 (footer, deep sections)
-   - Sage: #6B8C5A (subtle highlights)
+   Color Philosophy (from V2.png logo):
+   - Steel Blue:  #c8d5e0 — site background, nav bar (logo background match)
+   - Navy:        #1a2e5a — H1 headings, nav text, footer bg, primary buttons
+   - Golden Amber:#8b6420 — H2/H3 subheadings, secondary accents
+   - Bright Gold: #c9a227 — eyebrow labels, dividers, hover states, CTAs
+   - Cream:       #f0ece0 — card/panel backgrounds, alternating rows
+   - White:       #ffffff — content card interiors, form fields
+   - Dark body:   #1a1a1a — all body paragraph copy
    
    Typography:
-   - Display: Playfair Display Bold (dignified serif)
+   - Display: Playfair Display Bold (dignified serif — headings)
    - Body: Lora (warm readable serif)
-   - UI: Raleway (clean geometric sans)
+   - UI: Raleway (clean geometric sans — labels, nav, buttons)
    ============================================================ */
 
 @import "tailwindcss";
@@ -59,52 +59,55 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
-  /* UFN Brand Colors */
-  --color-forest: #1C3A1A;
-  --color-earth: #7A4F2E;
-  --color-paintbrush: #B8341B;
-  --color-birch: #F7F2E8;
-  --color-stone: #8A8478;
-  --color-obsidian: #1A1A18;
-  --color-sage: #6B8C5A;
-  --color-cream: #EDE6D3;
+
+  /* UFN Brand Colors v2 */
+  --color-ufn-steel:   #c8d5e0;
+  --color-ufn-navy:    #1a2e5a;
+  --color-ufn-amber:   #8b6420;
+  --color-ufn-gold:    #c9a227;
+  --color-ufn-cream:   #f0ece0;
+  --color-ufn-white:   #ffffff;
+  --color-ufn-body:    #1a1a1a;
 }
 
 :root {
   --radius: 0.25rem;
-  --background: oklch(0.97 0.012 80);
-  --foreground: oklch(0.18 0.025 140);
-  --card: oklch(0.99 0.008 80);
-  --card-foreground: oklch(0.18 0.025 140);
-  --popover: oklch(0.99 0.008 80);
-  --popover-foreground: oklch(0.18 0.025 140);
-  --primary: oklch(0.22 0.06 140);
-  --primary-foreground: oklch(0.97 0.012 80);
-  --secondary: oklch(0.92 0.02 80);
-  --secondary-foreground: oklch(0.22 0.06 140);
-  --muted: oklch(0.93 0.015 80);
-  --muted-foreground: oklch(0.52 0.02 80);
-  --accent: oklch(0.45 0.12 30);
-  --accent-foreground: oklch(0.97 0.012 80);
+  /* Steel blue base */
+  --background: oklch(0.86 0.025 220);
+  --foreground: oklch(0.15 0.06 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.06 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.06 240);
+  /* Navy primary */
+  --primary: oklch(0.25 0.09 255);
+  --primary-foreground: oklch(1 0 0);
+  /* Cream secondary */
+  --secondary: oklch(0.94 0.015 80);
+  --secondary-foreground: oklch(0.25 0.09 255);
+  --muted: oklch(0.90 0.018 220);
+  --muted-foreground: oklch(0.45 0.04 240);
+  /* Gold accent */
+  --accent: oklch(0.65 0.12 70);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.48 0.18 25);
-  --destructive-foreground: oklch(0.97 0.012 80);
-  --border: oklch(0.86 0.02 80);
-  --input: oklch(0.86 0.02 80);
-  --ring: oklch(0.45 0.12 30);
-  --chart-1: oklch(0.22 0.06 140);
-  --chart-2: oklch(0.45 0.12 30);
-  --chart-3: oklch(0.42 0.08 80);
-  --chart-4: oklch(0.52 0.02 80);
-  --chart-5: oklch(0.35 0.1 140);
-  --sidebar: oklch(0.97 0.012 80);
-  --sidebar-foreground: oklch(0.18 0.025 140);
-  --sidebar-primary: oklch(0.22 0.06 140);
-  --sidebar-primary-foreground: oklch(0.97 0.012 80);
-  --sidebar-accent: oklch(0.92 0.02 80);
-  --sidebar-accent-foreground: oklch(0.22 0.06 140);
-  --sidebar-border: oklch(0.86 0.02 80);
-  --sidebar-ring: oklch(0.45 0.12 30);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.78 0.03 220);
+  --input: oklch(0.96 0.01 220);
+  --ring: oklch(0.65 0.12 70);
+  --chart-1: oklch(0.25 0.09 255);
+  --chart-2: oklch(0.65 0.12 70);
+  --chart-3: oklch(0.55 0.09 70);
+  --chart-4: oklch(0.45 0.04 240);
+  --chart-5: oklch(0.35 0.07 255);
+  --sidebar: oklch(0.86 0.025 220);
+  --sidebar-foreground: oklch(0.15 0.06 240);
+  --sidebar-primary: oklch(0.25 0.09 255);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.90 0.018 220);
+  --sidebar-accent-foreground: oklch(0.25 0.09 255);
+  --sidebar-border: oklch(0.78 0.03 220);
+  --sidebar-ring: oklch(0.65 0.12 70);
 }
 
 @layer base {
@@ -114,8 +117,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Lora', Georgia, serif;
-    background-color: #F7F2E8;
-    color: #1C3A1A;
+    background-color: #c8d5e0;
+    color: #1a1a1a;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -128,12 +131,25 @@
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1 {
     font-family: 'Playfair Display', Georgia, serif;
-    color: #1C3A1A;
+    color: #1a2e5a;
+    font-weight: 700;
   }
-  
+  h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #8b6420;
+    font-weight: 700;
+  }
+  h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #1a2e5a;
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
   .font-ui {
     font-family: 'Raleway', sans-serif;
   }
@@ -167,207 +183,140 @@
       max-width: 1280px;
     }
   }
-  
-  /* UFN Custom Components */
-  
+
+  /* ---- UFN Custom Components v2 ---- */
+
+  /* Eyebrow / section label — bright gold */
   .ufn-section-label {
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #B8341B;
+    color: #c9a227;
   }
-  
+
+  /* Gold divider bar */
   .ufn-divider {
     width: 3rem;
-    height: 2px;
-    background-color: #7A4F2E;
+    height: 3px;
+    background-color: #c9a227;
     margin: 1rem 0;
   }
-  
+
+  /* Content card — white with gold left border */
   .ufn-card {
-    background: #FDFAF4;
-    border: 1px solid #E8DFC8;
-    border-left: 4px solid #7A4F2E;
+    background: #ffffff;
+    border: 1px solid #dce6ef;
+    border-left: 4px solid #c9a227;
     transition: all 0.3s ease;
   }
-  
+
   .ufn-card:hover {
-    border-left-color: #B8341B;
-    box-shadow: 0 8px 30px rgba(28, 58, 26, 0.12);
+    border-left-color: #1a2e5a;
+    box-shadow: 0 8px 30px rgba(26, 46, 90, 0.12);
     transform: translateY(-2px);
   }
-  
+
+  /* Primary CTA — gold background, navy text */
   .ufn-btn-primary {
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background-color: #B8341B;
-    color: #F7F2E8;
+    background-color: #c9a227;
+    color: #1a2e5a;
     padding: 0.75rem 2rem;
     border: none;
     transition: all 0.3s ease;
   }
-  
+
   .ufn-btn-primary:hover {
-    background-color: #9A2B15;
+    background-color: #1a2e5a;
+    color: #ffffff;
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(184, 52, 27, 0.3);
+    box-shadow: 0 4px 15px rgba(26, 46, 90, 0.35);
   }
-  
+
+  /* Secondary CTA — gold/amber background */
+  .ufn-btn-secondary {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background-color: #8b6420;
+    color: #ffffff;
+    padding: 0.75rem 2rem;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .ufn-btn-secondary:hover {
+    background-color: #c9a227;
+    color: #1a2e5a;
+    transform: translateY(-1px);
+  }
+
+  /* Outline button — beige/cream bg with gold border, navy text */
   .ufn-btn-outline {
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background-color: transparent;
-    color: #F7F2E8;
+    background-color: #d8d4c4;
+    color: #1a2e5a;
     padding: 0.75rem 2rem;
-    border: 1px solid rgba(247, 242, 232, 0.6);
+    border: 2px solid #c9a227;
     transition: all 0.3s ease;
   }
-  
+
   .ufn-btn-outline:hover {
-    background-color: rgba(247, 242, 232, 0.15);
-    border-color: #F7F2E8;
-  }
-  
-  .ufn-btn-forest {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background-color: #1C3A1A;
-    color: #F7F2E8;
-    padding: 0.75rem 2rem;
-    border: none;
-    transition: all 0.3s ease;
-  }
-  
-  .ufn-btn-forest:hover {
-    background-color: #2D5229;
+    background-color: #c9a227;
+    border-color: #c9a227;
+    color: #1a2e5a;
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(28, 58, 26, 0.3);
+    box-shadow: 0 4px 15px rgba(201, 162, 39, 0.35);
   }
-  
-  /* Fade-in animation */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  /* Navy section */
+  .navy-section {
+    background-color: #1a2e5a;
+    color: #ffffff;
   }
-  
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+
+  .navy-section h1,
+  .navy-section h2,
+  .navy-section h3,
+  .navy-section h4 {
+    color: #ffffff;
   }
-  
-  /* Grain texture overlay */
-  .grain-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1;
+
+  /* Steel section (default page bg) */
+  .steel-section {
+    background-color: #c8d5e0;
+    color: #1a1a1a;
   }
-  
-  /* Emergency banner pulse */
-  @keyframes emergencyPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
+
+  /* White content panel */
+  .white-panel {
+    background-color: #c8d5e0;
+    color: #1a1a1a;
   }
-  
-  .emergency-pulse {
-    animation: emergencyPulse 3s ease-in-out infinite;
+
+  /* Cream panel */
+  .cream-panel {
+    background-color: #f0ece0;
+    color: #1a1a1a;
   }
-  
-  /* Nav underline slide */
-  .nav-link-ufn {
-    position: relative;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  
-  .nav-link-ufn::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #B8341B;
-    transition: width 0.3s ease;
-  }
-  
-  .nav-link-ufn:hover::after,
-  .nav-link-ufn.active::after {
-    width: 100%;
-  }
-  
-  /* Scroll reveal */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .scroll-reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Paper texture background */
-  .paper-bg {
-    background-color: #F7F2E8;
-    background-image: 
-      radial-gradient(ellipse at 20% 50%, rgba(122, 79, 46, 0.04) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(28, 58, 26, 0.03) 0%, transparent 60%);
-  }
-  
-  /* Dark section */
-  .obsidian-section {
-    background-color: #1A1A18;
-    color: #F7F2E8;
-  }
-  
-  .obsidian-section h1,
-  .obsidian-section h2,
-  .obsidian-section h3,
-  .obsidian-section h4 {
-    color: #F7F2E8;
-  }
-  
-  /* Forest section */
-  .forest-section {
-    background-color: #1C3A1A;
-    color: #F7F2E8;
-  }
-  
-  .forest-section h1,
-  .forest-section h2,
-  .forest-section h3,
-  .forest-section h4 {
-    color: #F7F2E8;
-  }
-  
+
   /* Document card */
   .doc-card {
-    background: #FDFAF4;
-    border: 1px solid #E8DFC8;
-    border-left: 3px solid #1C3A1A;
+    background: #e8eef4;
+    border: 1px solid #b8c8d6;
+    border-left: 3px solid #1a2e5a;
     padding: 1.25rem 1.5rem;
     display: flex;
     align-items: center;
@@ -375,23 +324,101 @@
     transition: all 0.25s ease;
     text-decoration: none;
     color: inherit;
+    box-shadow: 0 1px 4px rgba(26, 46, 90, 0.06);
   }
-  
+
   .doc-card:hover {
-    border-left-color: #B8341B;
-    box-shadow: 0 4px 20px rgba(28, 58, 26, 0.1);
-    background: #FFF8EE;
+    border-left-color: #c9a227;
+    box-shadow: 0 4px 16px rgba(26, 46, 90, 0.12);
+    background: #f0f5fa;
   }
-  
+
   /* Contact card */
   .contact-card {
-    background: #FDFAF4;
-    border: 1px solid #E8DFC8;
+    background: #ffffff;
+    border: 1px solid #dce6ef;
+    border-top: 3px solid #1a2e5a;
     padding: 1.5rem;
     transition: all 0.25s ease;
   }
-  
+
   .contact-card:hover {
-    box-shadow: 0 4px 20px rgba(28, 58, 26, 0.1);
+    box-shadow: 0 4px 20px rgba(26, 46, 90, 0.1);
+    border-top-color: #c9a227;
+  }
+
+  /* Nav link style */
+  .nav-link-ufn {
+    position: relative;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a2e5a;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link-ufn::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #c9a227;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link-ufn:hover {
+    color: #c9a227;
+  }
+
+  .nav-link-ufn:hover::after,
+  .nav-link-ufn.active::after {
+    width: 100%;
+  }
+
+  .nav-link-ufn.active {
+    color: #c9a227;
+  }
+
+  /* Fade-in animation */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Scroll reveal */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Emergency banner pulse */
+  @keyframes emergencyPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  .emergency-pulse {
+    animation: emergencyPulse 3s ease-in-out infinite;
+  }
+
+  /* Gold horizontal rule */
+  .gold-rule {
+    border: none;
+    border-top: 3px solid #c9a227;
+    margin: 0;
   }
 }

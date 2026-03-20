@@ -1,334 +1,191 @@
 /*
- * ULKATCHO FIRST NATION — Contact & Departments Page
- * Theme: River Stone & Birch
+ * ULKATCHO FIRST NATION — Contact Us Page
+ * Design: Green "River Stone & Birch" layout recolored to Steel Blue / Navy / Gold
+ * Hero+breadcrumb, navy contact cards, contact form, Google Maps, social icons, scroll reveals
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Link } from "wouter";
-import { Mail, Phone, MapPin, User } from "lucide-react";
+import { MapPin, Mail, Phone, Facebook, Linkedin, Youtube, User } from "lucide-react";
+import ProtectedEmail from "@/components/ProtectedEmail";
 
-const chiefCouncil = [
-  { name: "Chief Derech Sill", role: "Chief", email: "chief@ulkatcho.ca" },
-  { name: "Councillor Breanna Charleyboy", role: "Councillor", email: "breannacharleyboy@ulkatcho.ca" },
-  { name: "Councillor Brad Jimmie", role: "Councillor", email: "bradleyjimmie@ulkatcho.ca" },
-  { name: "Councillor Stella West", role: "Councillor", email: "stellawest@ulkatcho.ca" },
-  { name: "Councillor Lorne Cahoose", role: "Councillor", email: "lornecahoose@ulkatcho.ca" },
-  { name: "Councillor Corinne Cahoose", role: "Councillor", email: "ccahoose@ulkatcho.ca" },
-];
-
-const departments = [
-  {
-    id: "education",
-    name: "Education Director",
-    person: "Joy Holte",
-    email: "educationdirector@ulkatcho.ca",
-    phone: "250-742-3260",
-    ext: "210",
-  },
-  {
-    id: "postsecondary",
-    name: "Post Secondary",
-    person: "Corrine Cahoose",
-    email: "postsecondary@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "209",
-  },
-  {
-    id: "k12",
-    name: "K-12 Liaison",
-    person: "",
-    email: "k-12liaison@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "212",
-  },
-  {
-    id: "housing",
-    name: "Housing & Capital Works",
-    person: "Omid Zareian",
-    email: "assets@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "208",
-  },
-  {
-    id: "health",
-    name: "Health Clinic",
-    person: "",
-    email: "healthdirector@ulkatcho.ca",
-    phone: "250-742-2090",
-    ext: "",
-  },
-  {
-    id: "natural-resources",
-    name: "Natural Resources",
-    person: "Alyisha Knapp",
-    email: "naturalresources@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "205",
-  },
-  {
-    id: "referrals",
-    name: "Referrals",
-    person: "Breanna Charleyboy",
-    email: "referrals@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "221",
-  },
-  {
-    id: "finance",
-    name: "Finance",
-    person: "",
-    email: "financedirector@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "202",
-  },
-  {
-    id: "social",
-    name: "Social Development",
-    person: "Clara Cahoose",
-    email: "saintake@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "215",
-  },
-  {
-    id: "registry",
-    name: "Indian Registry",
-    person: "Liz Anderson",
-    email: "landerson@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "220",
-  },
-  {
-    id: "operations",
-    name: "Band Manager / Operations",
-    person: "",
-    email: "OperationsManager@ulkatcho.ca",
-    phone: "250-742-3288",
-    ext: "218",
-  },
-];
+const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/ulkatcho-mountain-peak_640350dd.jpg";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("revealed");
-        });
-      },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("revealed"); }); },
       { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
     document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const mailtoBody = `Name: ${formData.name}%0APhone: ${formData.phone}%0A%0A${formData.message}`;
+    window.location.href = `mailto:info@ulkatcho.ca?subject=${encodeURIComponent(formData.subject || "Website Inquiry")}&body=${mailtoBody}`;
+  };
+
+  const inputStyle = {
+    border: "1px solid #dce6ef",
+    fontFamily: "Lora, serif",
+    color: "#333",
+    backgroundColor: "#ffffff",
+    outline: "none",
+  };
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F7F2E8" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#c8d5e0" }}>
       <Navbar />
 
-      {/* Page Hero */}
-      <div
-        className="relative pt-16 md:pt-20 overflow-hidden"
-        style={{
-          backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/footer-bg-eYuQVBNJBJWnRABpyYsTbv.webp')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 30%",
-          minHeight: "300px",
-        }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(26,26,24,0.6), rgba(26,26,24,0.8))" }}
-        />
-        <div className="container relative z-10 py-16 md:py-20">
-          <div className="ufn-section-label mb-3" style={{ color: "rgba(184,52,27,0.9)" }}>
-            Get in Touch
-          </div>
-          <h1
-            style={{
-              fontFamily: "Playfair Display, serif",
-              fontWeight: 700,
-              fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
-              color: "#F7F2E8",
-            }}
-          >
-            Contact & Departments
-          </h1>
-        </div>
-      </div>
-
-      {/* Breadcrumb */}
-      <div style={{ backgroundColor: "#EDE6D3", borderBottom: "1px solid #D8CEB8" }}>
-        <div className="container py-3">
-          <nav className="flex items-center gap-2 font-ui text-xs tracking-wider uppercase" style={{ color: "#8A8478" }}>
-            <Link href="/"><span className="hover:text-[#1C3A1A] transition-colors">Home</span></Link>
-            <span>/</span>
-            <span style={{ color: "#1C3A1A" }}>Contact</span>
-          </nav>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGE}
+        label="Get in Touch"
+        heading="Contact Us"
+        bgPosition="center 30%"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact" },
+        ]}
+      />
 
       <div className="container py-14">
-        {/* Main contact info */}
+        {/* Main contact info cards — navy bg */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14 scroll-reveal">
-          <div
-            className="p-6 text-center"
-            style={{ backgroundColor: "#1C3A1A" }}
-          >
-            <MapPin size={28} className="mx-auto mb-3" style={{ color: "#B8341B" }} />
-            <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(247,242,232,0.6)" }}>
-              Address
-            </p>
-            <p style={{ fontFamily: "Lora, serif", color: "#F7F2E8" }}>
+          <div className="p-6 text-center" style={{ backgroundColor: "#1a2e5a" }}>
+            <MapPin size={28} className="mx-auto mb-3" style={{ color: "#c9a227" }} />
+            <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>Address</p>
+            <p style={{ fontFamily: "Lora, serif", color: "#ffffff" }}>
               P.O. Box 3430<br />Anahim Lake, BC V0L 1C0
             </p>
           </div>
-          <div
-            className="p-6 text-center"
-            style={{ backgroundColor: "#1C3A1A" }}
-          >
-            <Phone size={28} className="mx-auto mb-3" style={{ color: "#B8341B" }} />
-            <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(247,242,232,0.6)" }}>
-              Main Office
+          <div className="p-6 text-center" style={{ backgroundColor: "#1a2e5a" }}>
+            <Phone size={28} className="mx-auto mb-3" style={{ color: "#c9a227" }} />
+            <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>Main Office</p>
+            <a href="tel:+12507423288" style={{ fontFamily: "Lora, serif", color: "#ffffff" }}>(250) 742-3288</a>
+            <p className="mt-2" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.6)", fontSize: "0.85rem" }}>
+              Toll Free: (877) 837-6369
             </p>
-            <a href="tel:+12507423288" style={{ fontFamily: "Lora, serif", color: "#F7F2E8" }}>
-              (250) 742-3288
-            </a>
-            <p className="mt-2" style={{ fontFamily: "Lora, serif", color: "rgba(247,242,232,0.6)", fontSize: "0.85rem" }}>
+            <p className="mt-1" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.6)", fontSize: "0.85rem" }}>
               Health Clinic: (250) 742-2090
             </p>
           </div>
-          <div
-            className="p-6 text-center"
-            style={{ backgroundColor: "#1C3A1A" }}
-          >
-            <Mail size={28} className="mx-auto mb-3" style={{ color: "#B8341B" }} />
-            <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(247,242,232,0.6)" }}>
-              Email
+          <div className="p-6 text-center" style={{ backgroundColor: "#1a2e5a" }}>
+            <Mail size={28} className="mx-auto mb-3" style={{ color: "#c9a227" }} />
+            <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>Email</p>
+            <ProtectedEmail user="info" domain="ulkatcho.ca" style={{ fontFamily: "Lora, serif", color: "#ffffff" }} showIcon={true} />
+            <p className="mt-2" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.6)", fontSize: "0.85rem" }}>
+              Fax: (250) 742-3411
             </p>
-            <a href="mailto:info@ulkatcho.ca" style={{ fontFamily: "Lora, serif", color: "#F7F2E8" }}>
-              info@ulkatcho.ca
-            </a>
           </div>
         </div>
 
-        {/* Chief & Council */}
-        <section className="mb-14">
-          <div className="ufn-section-label mb-3 scroll-reveal">Leadership</div>
-          <div className="ufn-divider scroll-reveal" />
-          <h2
-            className="mt-4 mb-8 scroll-reveal"
-            style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "2rem", color: "#1C3A1A" }}
-          >
-            Chief and Council
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {chiefCouncil.map((person, i) => (
-              <div
-                key={person.name}
-                className="contact-card scroll-reveal"
-                style={{ transitionDelay: `${i * 0.07}s` }}
-              >
-                <div className="flex items-start gap-3">
-                  <div
-                    className="w-9 h-9 flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: "rgba(28,58,26,0.08)" }}
-                  >
-                    <User size={16} style={{ color: "#1C3A1A" }} />
-                  </div>
-                  <div>
-                    <p
-                      className="font-semibold mb-0.5"
-                      style={{ fontFamily: "Playfair Display, serif", color: "#1C3A1A", fontSize: "1rem" }}
-                    >
-                      {person.name}
-                    </p>
-                    <p
-                      className="font-ui text-xs tracking-wider uppercase mb-2"
-                      style={{ color: "#8A8478" }}
-                    >
-                      {person.role}
-                    </p>
-                    <a
-                      href={`mailto:${person.email}`}
-                      className="flex items-center gap-1.5 text-sm transition-colors duration-200"
-                      style={{ fontFamily: "Lora, serif", color: "#B8341B" }}
-                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#9A2B15")}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#B8341B")}
-                    >
-                      <Mail size={12} />
-                      {person.email}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 scroll-reveal">
-            <Link href="/chief-council">
-              <button className="ufn-btn-forest">View Chief & Council Page</button>
-            </Link>
-          </div>
-        </section>
+        {/* Contact Form + Map Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-14">
+          {/* Left: Form */}
+          <div className="scroll-reveal">
+            <div className="ufn-section-label mb-3">Send a Message</div>
+            <div className="ufn-divider" />
+            <h2 className="mt-4 mb-4" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "2rem", color: "#1a2e5a" }}>
+              Looking for Help or Have a Question?
+            </h2>
+            <p className="mb-8 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#555", fontSize: "0.95rem" }}>
+              Ulkatcho First Nation staff are here to assist community members, partners, and visitors. Please fill out the form below or contact the Band Office directly.
+            </p>
 
-        {/* Departments */}
-        <section>
-          <div className="ufn-section-label mb-3 scroll-reveal">Administration</div>
-          <div className="ufn-divider scroll-reveal" />
-          <h2
-            className="mt-4 mb-8 scroll-reveal"
-            style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "2rem", color: "#1C3A1A" }}
-          >
-            Community Departments
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {departments.map((dept, i) => (
-              <div
-                key={dept.id}
-                id={dept.id}
-                className="contact-card scroll-reveal"
-                style={{ transitionDelay: `${i * 0.05}s` }}
-              >
-                <div
-                  className="font-ui text-xs tracking-widest uppercase mb-1"
-                  style={{ color: "#B8341B" }}
-                >
-                  {dept.name}
-                </div>
-                {dept.person && (
-                  <p
-                    className="font-semibold mb-2"
-                    style={{ fontFamily: "Playfair Display, serif", color: "#1C3A1A" }}
-                  >
-                    {dept.person}
-                  </p>
-                )}
-                <div className="flex flex-col gap-1.5">
-                  <a
-                    href={`mailto:${dept.email}`}
-                    className="flex items-center gap-2 text-sm transition-colors duration-200"
-                    style={{ fontFamily: "Lora, serif", color: "#5A5248" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#B8341B")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#5A5248")}
-                  >
-                    <Mail size={12} style={{ color: "#7A4F2E" }} />
-                    {dept.email}
-                  </a>
-                  <div className="flex items-center gap-2 text-sm" style={{ fontFamily: "Lora, serif", color: "#5A5248" }}>
-                    <Phone size={12} style={{ color: "#7A4F2E" }} />
-                    <a href={`tel:+1${dept.phone.replace(/-/g, "")}`} style={{ color: "#5A5248" }}>
-                      {dept.phone}
-                    </a>
-                    {dept.ext && (
-                      <span style={{ color: "#8A8478" }}>ext. {dept.ext}</span>
-                    )}
-                  </div>
-                </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text" placeholder="Full Name" required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-4 py-3 text-sm"
+                style={inputStyle}
+                onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "#c9a227"; }}
+                onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "#dce6ef"; }}
+              />
+              <input
+                type="email" placeholder="Email Address" required
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-3 text-sm"
+                style={inputStyle}
+                onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "#c9a227"; }}
+                onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "#dce6ef"; }}
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="tel" placeholder="Phone Number"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-4 py-3 text-sm"
+                  style={inputStyle}
+                  onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "#c9a227"; }}
+                  onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "#dce6ef"; }}
+                />
+                <input
+                  type="text" placeholder="Subject"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className="w-full px-4 py-3 text-sm"
+                  style={inputStyle}
+                  onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "#c9a227"; }}
+                  onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "#dce6ef"; }}
+                />
               </div>
-            ))}
+              <textarea
+                placeholder="Your Message" rows={5} required
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 text-sm resize-y"
+                style={inputStyle}
+                onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "#c9a227"; }}
+                onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "#dce6ef"; }}
+              />
+              <button type="submit" className="ufn-btn-primary w-full">
+                Send Message
+              </button>
+            </form>
+
+            {/* Social Icons */}
+            <div className="flex gap-3 mt-6">
+              {[
+                { icon: Facebook, href: "https://www.facebook.com/UlkatchoFirstNation", label: "Facebook" },
+                { icon: Linkedin, href: "#", label: "LinkedIn" },
+                { icon: Youtube, href: "https://www.youtube.com/@ulkatchofirstnation", label: "YouTube" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center transition-all duration-200"
+                  style={{ backgroundColor: "#1a2e5a" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#c9a227"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#1a2e5a"; }}
+                >
+                  <Icon size={18} style={{ color: "#ffffff" }} />
+                </a>
+              ))}
+            </div>
           </div>
-        </section>
+
+          {/* Right: Google Map */}
+          <div className="scroll-reveal" style={{ transitionDelay: "0.15s" }}>
+            <div style={{ overflow: "hidden", height: "100%", minHeight: "450px" }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19456.47!2d-125.65!3d52.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5474c0a3a5f0e0c1%3A0x1234567890abcdef!2sAnahim%20Lake%2C%20BC!5e0!3m2!1sen!2sca!4v1234567890"
+                width="100%" height="100%"
+                style={{ border: 0 }}
+                allowFullScreen loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ulkatcho First Nation Location - Anahim Lake, BC"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <Footer />

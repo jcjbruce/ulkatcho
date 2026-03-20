@@ -7,6 +7,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
+import ProtectedEmail from "@/components/ProtectedEmail";
 
 export default function MemberPortal() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,7 @@ export default function MemberPortal() {
     <div
       className="min-h-screen flex flex-col"
       style={{
-        backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/hero-landscape-XMfDNRn5AqAL8tFS8QhzzA.webp')`,
+        backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/hero-landscape_dc4795fe.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center 40%",
       }}
@@ -34,51 +35,27 @@ export default function MemberPortal() {
         style={{ backgroundColor: "rgba(26, 26, 24, 0.82)" }}
       />
 
-      {/* Header */}
-      <header className="relative z-10 p-6">
-        <Link href="/">
-          <div className="flex items-center gap-3">
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/logo-new_03f03d5a.png"
-              alt="Ulkatcho First Nation Crest"
-              className="w-auto object-contain flex-shrink-0"
-              style={{ height: "56px", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.4))" }}
-            />
-            <div className="leading-tight">
-              <div
-                className="font-display font-bold"
-                style={{ color: "#F7F2E8", fontSize: "1.05rem", letterSpacing: "0.03em" }}
-              >
-                Ulkatcho
-              </div>
-              <div
-                className="font-ui tracking-widest uppercase"
-                style={{ color: "#C8922A", fontSize: "0.6rem", letterSpacing: "0.18em" }}
-              >
-                First Nation
-              </div>
-            </div>
-          </div>
-        </Link>
-      </header>
+
 
       {/* Login Card */}
       <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-12">
         <div
           className="w-full max-w-md"
           style={{
-            backgroundColor: "#F7F2E8",
-            borderTop: "4px solid #B8341B",
+            backgroundColor: "#c8d5e0",
+            borderTop: "4px solid #c9a227",
             boxShadow: "0 25px 60px rgba(0,0,0,0.4)",
           }}
         >
           <div className="p-8 md:p-10">
-            {/* Icon */}
-            <div
-              className="w-14 h-14 flex items-center justify-center mb-6"
-              style={{ backgroundColor: "#1C3A1A" }}
-            >
-              <Lock size={24} style={{ color: "#F7F2E8" }} />
+            {/* UFN Logo */}
+            <div className="flex justify-center mb-6">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/ufn-crest-colored_7277081e.png"
+                alt="Ulkatcho First Nation Crest"
+                className="w-auto"
+                style={{ height: "100px" }}
+              />
             </div>
 
             <div className="ufn-section-label mb-2">Secure Access</div>
@@ -88,14 +65,14 @@ export default function MemberPortal() {
                 fontFamily: "Playfair Display, serif",
                 fontWeight: 700,
                 fontSize: "1.85rem",
-                color: "#1C3A1A",
+                color: "#1a2e5a",
               }}
             >
               Member Login
             </h1>
             <p
               className="mb-8 text-sm"
-              style={{ fontFamily: "Lora, serif", color: "#8A8478" }}
+              style={{ fontFamily: "Lora, serif", color: "#8b6420" }}
             >
               Ulkatcho First Nation members only
             </p>
@@ -106,7 +83,7 @@ export default function MemberPortal() {
                 <label
                   htmlFor="email"
                   className="block font-ui text-xs tracking-wider uppercase mb-2"
-                  style={{ color: "#5A5248" }}
+                  style={{ color: "#555555" }}
                 >
                   Email Address
                 </label>
@@ -114,7 +91,7 @@ export default function MemberPortal() {
                   <Mail
                     size={15}
                     className="absolute left-3 top-1/2 -translate-y-1/2"
-                    style={{ color: "#8A8478" }}
+                    style={{ color: "#8b6420" }}
                   />
                   <input
                     id="email"
@@ -125,16 +102,16 @@ export default function MemberPortal() {
                     required
                     className="w-full pl-10 pr-4 py-3 text-sm outline-none transition-all duration-200"
                     style={{
-                      backgroundColor: "#EDE6D3",
-                      border: "1px solid #D8CEB8",
-                      color: "#1C3A1A",
+                      backgroundColor: "#c8d5e0",
+                      border: "1px solid #dce6ef",
+                      color: "#1a2e5a",
                       fontFamily: "Lora, serif",
                     }}
                     onFocus={(e) => {
-                      (e.target as HTMLInputElement).style.borderColor = "#1C3A1A";
+                      (e.target as HTMLInputElement).style.borderColor = "#1a2e5a";
                     }}
                     onBlur={(e) => {
-                      (e.target as HTMLInputElement).style.borderColor = "#D8CEB8";
+                      (e.target as HTMLInputElement).style.borderColor = "#dce6ef";
                     }}
                   />
                 </div>
@@ -145,7 +122,7 @@ export default function MemberPortal() {
                 <label
                   htmlFor="password"
                   className="block font-ui text-xs tracking-wider uppercase mb-2"
-                  style={{ color: "#5A5248" }}
+                  style={{ color: "#555555" }}
                 >
                   Password
                 </label>
@@ -153,7 +130,7 @@ export default function MemberPortal() {
                   <Lock
                     size={15}
                     className="absolute left-3 top-1/2 -translate-y-1/2"
-                    style={{ color: "#8A8478" }}
+                    style={{ color: "#8b6420" }}
                   />
                   <input
                     id="password"
@@ -164,22 +141,22 @@ export default function MemberPortal() {
                     required
                     className="w-full pl-10 pr-10 py-3 text-sm outline-none transition-all duration-200"
                     style={{
-                      backgroundColor: "#EDE6D3",
-                      border: "1px solid #D8CEB8",
-                      color: "#1C3A1A",
+                      backgroundColor: "#c8d5e0",
+                      border: "1px solid #dce6ef",
+                      color: "#1a2e5a",
                       fontFamily: "Lora, serif",
                     }}
                     onFocus={(e) => {
-                      (e.target as HTMLInputElement).style.borderColor = "#1C3A1A";
+                      (e.target as HTMLInputElement).style.borderColor = "#1a2e5a";
                     }}
                     onBlur={(e) => {
-                      (e.target as HTMLInputElement).style.borderColor = "#D8CEB8";
+                      (e.target as HTMLInputElement).style.borderColor = "#dce6ef";
                     }}
                   />
                   <button
                     type="button"
                     className="absolute right-3 top-1/2 -translate-y-1/2"
-                    style={{ color: "#8A8478" }}
+                    style={{ color: "#8b6420" }}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
@@ -192,9 +169,9 @@ export default function MemberPortal() {
                 <button
                   type="button"
                   className="font-ui text-xs tracking-wider uppercase transition-colors duration-200"
-                  style={{ color: "#8A8478" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#B8341B")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#8A8478")}
+                  style={{ color: "#8b6420" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#c9a227")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#8b6420")}
                   onClick={() => alert("Please contact info@ulkatcho.ca to reset your password.")}
                 >
                   Forgot Password?
@@ -213,17 +190,11 @@ export default function MemberPortal() {
             {/* Help text */}
             <div
               className="mt-8 pt-6"
-              style={{ borderTop: "1px solid #D8CEB8" }}
+              style={{ borderTop: "1px solid #dce6ef" }}
             >
-              <p className="text-sm text-center" style={{ fontFamily: "Lora, serif", color: "#8A8478" }}>
+              <p className="text-sm text-center" style={{ fontFamily: "Lora, serif", color: "#8b6420" }}>
                 Need access? Contact{" "}
-                <a
-                  href="mailto:info@ulkatcho.ca"
-                  className="underline transition-colors duration-200"
-                  style={{ color: "#B8341B" }}
-                >
-                  info@ulkatcho.ca
-                </a>
+                <ProtectedEmail user="info" domain="ulkatcho.ca" />
               </p>
             </div>
           </div>
@@ -235,9 +206,9 @@ export default function MemberPortal() {
         <Link href="/">
           <span
             className="inline-flex items-center gap-2 font-ui text-xs tracking-wider uppercase transition-colors duration-200"
-            style={{ color: "rgba(247,242,232,0.5)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(247,242,232,0.9)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(247,242,232,0.5)")}
+            style={{ color: "rgba(255,255,255,0.5)" }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.9)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)")}
           >
             <ArrowLeft size={13} />
             Return to Home
