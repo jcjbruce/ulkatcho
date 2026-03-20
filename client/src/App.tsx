@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import PasswordGate from "./components/PasswordGate";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import HomePage from "./pages/Home";
 import About from "./pages/About";
@@ -54,13 +55,15 @@ function ScrollToTop() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <ScrollToTop />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
+      <PasswordGate>
+        <ThemeProvider defaultTheme="light">
+          <TooltipProvider>
+            <Toaster />
+            <ScrollToTop />
+            <Router />
+          </TooltipProvider>
+        </ThemeProvider>
+      </PasswordGate>
     </ErrorBoundary>
   );
 }
