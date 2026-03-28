@@ -12,7 +12,7 @@ type ContentRow = {
 };
 
 type FieldDef = { field: string; label: string; type: "text" | "textarea" | "toggle" };
-type SectionDef = { section: string; label: string; fields: FieldDef[] };
+type SectionDef = { section: string; label: string; note?: string; fields: FieldDef[] };
 type PageDef = { key: string; label: string; path: string; sections: SectionDef[] };
 
 const PAGES: PageDef[] = [
@@ -49,6 +49,16 @@ const PAGES: PageDef[] = [
         { field: "heading", label: "Section Heading", type: "text" },
         { field: "paragraph1", label: "Paragraph 1", type: "textarea" },
         { field: "paragraph2", label: "Paragraph 2", type: "textarea" },
+      ]},
+      { section: "images", label: "Images", note: "To update an image: upload your photo to any image hosting service (e.g. Google Photos — share → copy link, or Imgur.com), then paste the direct image URL below.", fields: [
+        { field: "hero", label: "Hero Background Image URL", type: "text" },
+        { field: "chief", label: "Chief's Photo URL", type: "text" },
+        { field: "culture", label: "Culture Section Photo URL", type: "text" },
+        { field: "land_strip", label: "Land Strip Banner URL", type: "text" },
+        { field: "gallery_1", label: "Culture Gallery Image 1 URL (Pine Mushrooms)", type: "text" },
+        { field: "gallery_2", label: "Culture Gallery Image 2 URL (Moose)", type: "text" },
+        { field: "gallery_3", label: "Culture Gallery Image 3 URL (Rivers & Trout)", type: "text" },
+        { field: "gallery_4", label: "Culture Gallery Image 4 URL (Indian Paintbrush)", type: "text" },
       ]},
     ],
   },
@@ -88,6 +98,10 @@ const PAGES: PageDef[] = [
         { field: "paragraph1", label: "Paragraph 1", type: "textarea" },
         { field: "paragraph2", label: "Paragraph 2", type: "textarea" },
       ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "hero", label: "Hero Background Image URL", type: "text" },
+        { field: "territory", label: "Wilderness / Territory Photo URL", type: "text" },
+      ]},
     ],
   },
   {
@@ -116,6 +130,10 @@ const PAGES: PageDef[] = [
         { field: "contact_person", label: "Contact Person", type: "text" },
         { field: "contact_extension", label: "Contact Extension", type: "text" },
       ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "hero", label: "Hero Background Image URL", type: "text" },
+        { field: "illustration", label: "Cultural Illustration Image URL", type: "text" },
+      ]},
     ],
   },
   {
@@ -134,6 +152,9 @@ const PAGES: PageDef[] = [
         { field: "label", label: "Section Label", type: "text" },
         { field: "heading", label: "Section Heading", type: "text" },
         { field: "paragraph", label: "Section Description", type: "textarea" },
+      ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "hero", label: "Hero Background Image URL", type: "text" },
       ]},
     ],
   },
@@ -162,6 +183,9 @@ const PAGES: PageDef[] = [
         { field: "heading", label: "Form Heading", type: "text" },
         { field: "paragraph", label: "Form Description", type: "textarea" },
       ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "hero", label: "Hero Background Image URL", type: "text" },
+      ]},
     ],
   },
   {
@@ -183,6 +207,9 @@ const PAGES: PageDef[] = [
       ]},
       { section: "cta", label: "Call to Action", fields: [
         { field: "paragraph", label: "CTA Text", type: "textarea" },
+      ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "strategic_plan", label: "Strategic Plan Infographic URL", type: "text" },
       ]},
     ],
   },
@@ -234,6 +261,10 @@ const PAGES: PageDef[] = [
         { field: "heading", label: "Section Heading", type: "text" },
         { field: "body", label: "Section Content", type: "textarea" },
       ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "anahim_lake", label: "Anahim Lake Photo URL", type: "text" },
+        { field: "village_1927", label: "Ulkatcho Village 1927 Photo URL", type: "text" },
+      ]},
     ],
   },
   {
@@ -261,6 +292,10 @@ const PAGES: PageDef[] = [
       { section: "section_5", label: "Clayton Mack – Family Ties", fields: [
         { field: "heading", label: "Section Heading", type: "text" },
         { field: "body", label: "Section Content", type: "textarea" },
+      ]},
+      { section: "images", label: "Images", note: "Paste a direct image URL to replace any photo on this page.", fields: [
+        { field: "portrait_1", label: "Portrait 1 URL (Bella Coola section)", type: "text" },
+        { field: "portrait_2", label: "Portrait 2 URL (Clallamin House section)", type: "text" },
       ]},
     ],
   },
@@ -384,9 +419,14 @@ export default function SiteContentEditor() {
         <div className="space-y-6">
           {currentPage.sections.map((sec) => (
             <div key={sec.section} style={{ backgroundColor: "#ffffff", border: "1px solid #e8edf2", padding: "20px" }}>
-              <h3 className="mb-4 text-xs font-semibold tracking-wider uppercase" style={{ fontFamily: "Raleway, sans-serif", color: "#8b6420" }}>
+              <h3 className="mb-2 text-xs font-semibold tracking-wider uppercase" style={{ fontFamily: "Raleway, sans-serif", color: "#8b6420" }}>
                 {sec.label}
               </h3>
+              {sec.note && (
+                <p className="mb-4 text-xs leading-relaxed px-3 py-2" style={{ fontFamily: "Lora, serif", color: "#555", backgroundColor: "#f0f5fa", borderLeft: "3px solid #c9a227" }}>
+                  {sec.note}
+                </p>
+              )}
               <div className="space-y-3">
                 {sec.fields.map((f) => {
                   const key = `${sec.section}.${f.field}`;

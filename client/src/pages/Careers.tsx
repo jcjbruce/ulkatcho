@@ -20,6 +20,7 @@ const filterTypes = ["Freelance", "Full Time", "Internship", "Part Time", "Tempo
 
 export default function Careers() {
   const { get } = useSiteContent("careers", {
+    "images.hero": HERO_IMAGE,
     "hero.label": "Employment Opportunities",
     "hero.heading": "Careers",
     "priority_policy.heading": "Internal Priority Hiring Policy",
@@ -74,7 +75,7 @@ export default function Careers() {
       <Navbar />
 
       <PageHero
-        image={HERO_IMAGE}
+        image={get("images.hero")}
         label={get("hero.label")}
         heading={get("hero.heading")}
         bgPosition="center 40%"

@@ -22,6 +22,8 @@ const paras = (text: string) =>
 
 export default function AncestralOrigins() {
   const { get } = useSiteContent("ancestral", {
+    "images.portrait_1": PORTRAIT_1,
+    "images.portrait_2": PORTRAIT_2,
     "hero.heading": "Ancestral Origins",
     "section_1.heading": "Ulkatcho and Tŝilhqot'in People in Bella Coola Valley",
     "section_1.body": "Nuxalk Elders Clayton Mack and Mabel Hall both recorded stories describing how Ulkatcho and Tsilhqot'in families have ancestral family ties with the Nuxalk of Bella Coola Valley at Stuie (Stwic) and Noosgulch (Nus'qulst).\n\nUlkatcho Elder Benny Jack told a story about Chief ʔAnahim leaving Bella Coola and taking his people to the Chilcotin Plateau.",
@@ -60,7 +62,7 @@ export default function AncestralOrigins() {
 
             {/* Float-right portrait */}
             <img
-              src={PORTRAIT_1}
+              src={get("images.portrait_1")}
               alt="Historical portrait"
               className="hidden md:block"
               style={{
@@ -96,7 +98,7 @@ export default function AncestralOrigins() {
 
             {/* Float-right portrait */}
             <img
-              src={PORTRAIT_2}
+              src={get("images.portrait_2")}
               alt="Historical portrait"
               className="hidden md:block"
               style={{

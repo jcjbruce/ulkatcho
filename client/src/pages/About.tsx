@@ -27,6 +27,8 @@ const TERRITORY_IMAGE = "https://nativeacademy.org/wp-content/uploads/2026/02/jc
 
 export default function About() {
   const { get } = useSiteContent("about", {
+    "images.hero": HERO_IMAGE,
+    "images.territory": TERRITORY_IMAGE,
     "hero.label": "About Ulkatcho First Nation",
     "hero.heading": "Our Nation, Our Story",
     "vision.label": "Our Vision",
@@ -67,7 +69,7 @@ export default function About() {
       <Navbar />
 
       <PageHero
-        image={HERO_IMAGE}
+        image={get("images.hero")}
         label={get("hero.label")}
         heading={get("hero.heading")}
         bgPosition="center 30%"
@@ -167,7 +169,7 @@ export default function About() {
           CULTURE STRIP
           ============================================================ */}
       <div className="relative overflow-hidden" style={{ height: "280px" }}>
-        <div className="absolute inset-0" style={{ backgroundImage: `url('${CULTURE_STRIP}')`, backgroundSize: "cover", backgroundPosition: "center 40%" }} />
+        <div className="absolute inset-0" style={{ backgroundImage: `url('${get("images.hero")}')`, backgroundSize: "cover", backgroundPosition: "center 40%" }} />
         <div className="absolute inset-0" style={{ backgroundColor: "rgba(26,46,90,0.65)" }} />
         <div className="absolute inset-0 flex items-center justify-center">
           <p className="text-center text-2xl md:text-3xl italic px-6" style={{ fontFamily: "Playfair Display, serif", color: "#ffffff", maxWidth: "700px" }}>
@@ -204,7 +206,7 @@ export default function About() {
 
             <div className="scroll-reveal" style={{ transitionDelay: "0.15s" }}>
               <div className="relative overflow-hidden" style={{ borderRadius: "2px" }}>
-                <img src={TERRITORY_IMAGE} alt="Ulkatcho ancestral territory" className="w-full object-cover" style={{ maxHeight: "480px" }} />
+                <img src={get("images.territory")} alt="Ulkatcho ancestral territory" className="w-full object-cover" style={{ maxHeight: "480px" }} />
               </div>
               <div className="mt-4 p-4" style={{ backgroundColor: "#c8d5e0", borderLeft: "3px solid #8b6420" }}>
                 <p className="text-sm italic" style={{ fontFamily: "Lora, serif", color: "#555" }}>

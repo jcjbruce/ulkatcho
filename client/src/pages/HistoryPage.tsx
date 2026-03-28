@@ -23,6 +23,8 @@ const paras = (text: string) =>
 
 export default function HistoryPage() {
   const { get } = useSiteContent("history", {
+    "images.anahim_lake": ANAHIM_LAKE,
+    "images.village_1927": VILLAGE_1927,
     "hero.heading": "History of Ulkatcho First Nation",
     "section_1.label": "MAP OF OUR TRADITIONAL TERRITORY",
     "section_1.heading": "Ulkatcho First Nation",
@@ -143,7 +145,7 @@ export default function HistoryPage() {
             </h3>
             <div className="mb-6 overflow-hidden" style={{ borderRadius: "4px", boxShadow: "0 4px 20px rgba(26,46,90,0.08)" }}>
               <img
-                src={ANAHIM_LAKE}
+                src={get("images.anahim_lake")}
                 alt="Anahim Lake, British Columbia"
                 className="w-full"
                 style={{ maxHeight: "400px", objectFit: "cover" }}
@@ -196,7 +198,7 @@ export default function HistoryPage() {
             </h3>
             <div className="mb-6 overflow-hidden" style={{ borderRadius: "4px", boxShadow: "0 4px 20px rgba(26,46,90,0.08)" }}>
               <img
-                src={VILLAGE_1927}
+                src={get("images.village_1927")}
                 alt="Ulkatcho Village, photographed by Frank Swannell in 1927"
                 className="w-full"
                 style={{ maxHeight: "420px", objectFit: "cover" }}

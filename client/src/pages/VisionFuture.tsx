@@ -26,6 +26,7 @@ const downloads = [
 
 export default function VisionFuture() {
   const { get } = useSiteContent("vision", {
+    "images.strategic_plan": STRATEGIC_PLAN_IMG,
     "hero.heading": "Our Vision & Future",
     "intro.paragraph": "Ulkatcho First Nation's strategic direction is guided by our values, our connection to the land, and the priorities identified by community members. The plans below outline how we are building a healthy, vibrant, and sustainable future for all generations.",
     "strategic_plan.label": "Our Strategic Plan",
@@ -90,7 +91,7 @@ export default function VisionFuture() {
               }}
             >
               <img
-                src={STRATEGIC_PLAN_IMG}
+                src={get("images.strategic_plan")}
                 alt="Key Elements of the Ulkatcho Strategic Plan — Vision, Mission, Core Values, and 6 Strategic Priorities"
                 className="w-full"
               />

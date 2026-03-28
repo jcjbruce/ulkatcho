@@ -17,6 +17,7 @@ const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB
 
 export default function Contact() {
   const { get } = useSiteContent("contact", {
+    "images.hero": HERO_IMAGE,
     "hero.label": "Get in Touch",
     "hero.heading": "Contact Us",
     "main.phone": "(250) 742-3288",
@@ -60,7 +61,7 @@ export default function Contact() {
       <Navbar />
 
       <PageHero
-        image={HERO_IMAGE}
+        image={get("images.hero")}
         label={get("hero.label")}
         heading={get("hero.heading")}
         bgPosition="center 30%"

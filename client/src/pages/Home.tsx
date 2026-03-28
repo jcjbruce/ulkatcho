@@ -113,6 +113,14 @@ export default function Home() {
   const { get } = useSiteContent("home", {
     "emergency_banner.is_visible": String(SHOW_EMERGENCY_BANNER),
     "emergency_banner.text": EMERGENCY_BANNER_TEXT,
+    "images.hero": HERO_IMAGE,
+    "images.chief": CHIEF_IMAGE,
+    "images.culture": CULTURE_IMAGE,
+    "images.land_strip": LAND_STRIP_IMAGE,
+    "images.gallery_1": cultureImages[0].img,
+    "images.gallery_2": cultureImages[1].img,
+    "images.gallery_3": cultureImages[2].img,
+    "images.gallery_4": cultureImages[3].img,
     "hero.label": "Dakelh / Carrier Nation · Anahim Lake, BC",
     "hero.heading_line1": "Rooted in the Land,",
     "hero.heading_line2": "Strong in Our People",
@@ -185,7 +193,7 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `url('${HERO_IMAGE}')`,
+            backgroundImage: `url('${get("images.hero")}')`,
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
             transform: `translateY(${scrollY * 0.3}px)`,
@@ -391,7 +399,7 @@ export default function Home() {
             <div className="scroll-reveal relative" style={{ transitionDelay: "0.15s" }}>
               <div className="relative overflow-hidden" style={{ borderRadius: "2px" }}>
                 <img
-                  src={CHIEF_IMAGE}
+                  src={get("images.chief")}
                   alt="Councillor Stella West, Councillor Corrine Cahoose, and Chief Derech Sill at oath of office signing ceremony"
                   className="w-full object-cover"
                   style={{ maxHeight: "520px", objectPosition: "center" }}
@@ -464,7 +472,7 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `url('${LAND_STRIP_IMAGE}')`,
+            backgroundImage: `url('${get("images.land_strip")}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -613,10 +621,10 @@ export default function Home() {
 
             {/* 2×2 Photo grid with hover zoom + label reveal */}
             <div className="grid grid-cols-2 gap-3 scroll-reveal" style={{ transitionDelay: "0.15s" }}>
-              {cultureImages.map((item) => (
+              {cultureImages.map((item, i) => (
                 <div key={item.label} className="relative overflow-hidden group" style={{ aspectRatio: "1" }}>
                   <img
-                    src={item.img}
+                    src={get(`images.gallery_${i + 1}`) || item.img}
                     alt={item.label}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -642,7 +650,7 @@ export default function Home() {
       <section
         className="relative overflow-hidden py-24"
         style={{
-          backgroundImage: `url('${CULTURE_IMAGE}')`,
+          backgroundImage: `url('${get("images.culture")}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",

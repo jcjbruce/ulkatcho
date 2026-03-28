@@ -116,6 +116,8 @@ function DocCard({
 
 export default function Education() {
   const { get } = useSiteContent("education", {
+    "images.hero": HERO_IMAGE,
+    "images.illustration": CULTURAL_ILLUSTRATION,
     "hero.label": "Education & Training",
     "hero.heading": "Education Programs",
     "intro.paragraph": "Ulkatcho First Nation is committed to supporting the educational journey of all members — from kindergarten through post-secondary. Below you will find all required forms and application packages. Contact the Education Department with any questions.",
@@ -146,7 +148,7 @@ export default function Education() {
       <Navbar />
 
       <PageHero
-        image={HERO_IMAGE}
+        image={get("images.hero")}
         label={get("hero.label")}
         heading={get("hero.heading")}
         bgPosition="center 60%"
@@ -206,7 +208,7 @@ export default function Education() {
         {/* Cultural Illustration */}
         <div className="mb-16" style={{ backgroundColor: "transparent" }}>
           <img
-            src={CULTURAL_ILLUSTRATION}
+            src={get("images.illustration")}
             alt="Ulkatcho cultural elements — pine mushrooms, moose, caribou, Indian paintbrush, soapberries, trout, obsidian"
             className="w-full object-contain"
             style={{ maxHeight: "200px", mixBlendMode: "multiply" }}
