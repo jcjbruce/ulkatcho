@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { Link } from "wouter";
-import { MapPin, Mail, Phone, Facebook, Linkedin, Youtube, User } from "lucide-react";
+import { MapPin, Mail, Phone, Facebook, Youtube, User } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/ulkatcho-mountain-peak_640350dd.jpg";
@@ -156,7 +156,6 @@ export default function Contact() {
             <div className="flex gap-3 mt-6">
               {[
                 { icon: Facebook, href: "https://www.facebook.com/UlkatchoFirstNation", label: "Facebook" },
-                { icon: Linkedin, href: "https://www.linkedin.com/company/ulkatcho-first-nation", label: "LinkedIn" },
                 { icon: Youtube, href: "https://www.youtube.com/@ulkatchofirstnation", label: "YouTube" },
               ].map(({ icon: Icon, href, label }) => (
                 <a
