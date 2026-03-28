@@ -168,7 +168,7 @@ export default function HistoryPage() {
               After Chief ʔAnahim moved east, Chief Domas Squinas established his home at Anahim Lake. He built a ranch there with his wife Christine from Chezlatta, and they raised their family of three boys, Louie, Donald and Thomas, and daughter Belonic (Veronica). Their closest neighbours were Antone Capoose at Abuntlet Lake and the Tsilhqot'in families to the East.
             </p>
             <p className="leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1rem" }}>
-              As the West Chilcotin became settled by non-indigenous homesteaders and ranchers in the early 1900s, other Ulkatcho families moved to Anahim Lake to take advantage of job opportunities and schooling for their children. When the Canadian government established the reserve system to set land aside for indigenous people in the Chilcotin, the Squinas ranch at Anahim Lake became a reserve for the whole Ulkatcho community.
+              As the West Chilcotin became settled by non-indigenous homesteaders and ranchers in the early 1900s, other Ulkatcho families moved to Anahim Lake to take advantage of job opportunities and schooling for their children. When the Canadian government established the reserve system to set land aside for Indigenous people in the Chilcotin, the Squinas ranch at Anahim Lake became a reserve for the whole Ulkatcho community.
             </p>
           </section>
 
@@ -209,7 +209,7 @@ export default function HistoryPage() {
           {/* Ulkatcho Village — with swannell photo */}
           <section className="mb-14 scroll-reveal">
             <h3 className="mb-6" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.75rem", color: "#1a2e5a" }}>
-              Ulkatcho Village – a Brief History
+              Ulkatcho Village – A Brief History
             </h3>
             <div className="mb-6 overflow-hidden" style={{ borderRadius: "4px", boxShadow: "0 4px 20px rgba(26,46,90,0.08)" }}>
               <img
@@ -223,10 +223,10 @@ export default function HistoryPage() {
               </p>
             </div>
             <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1rem" }}>
-              Long before first contact with White Euro-Canadian society in 1793, Ulkatcho Village was an important trading and gathering site in the heart of Ulkatcho territory. The Culle Culle House was a large potlatch house at Ulkatcho Village. In 1793 Alexander Mackenzie passed through the Central Coast, and he described the Culle Culle House in his journal.
+              Long before first contact with White Euro-Canadian society in 1793, Ulkatcho Village was an important trading and gathering site in the heart of Ulkatcho territory. The Culla Culla House was a large potlatch house at Ulkatcho Village. In 1793 Alexander Mackenzie passed through the Central Coast, and he described the Culla Culla House in his journal.
             </p>
             <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1rem" }}>
-              Eighty-three years later the Culle Culle house was still standing when surveyor George Dawson took the very first known photograph of it in 1876. He wrote of Kultshe designs cut deep to be seen in the bark of trees along the trail, and described the Culle Culle house in detail. When people gathered there they would stay in temporary brush shelters.
+              Eighty-three years later the Culla Culla house was still standing when surveyor George Dawson took the very first known photograph of it in 1876. He wrote of Kultshe designs cut deep to be seen in the bark of trees along the trail, and described the Culla Culla house in detail. When people gathered there they would stay in temporary brush shelters.
             </p>
             <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1rem" }}>
               In 1897 Oblate priest Father Francois Marie Thomas started travelling throughout the Chilcotin and Blackwater country catechizing the Tŝilhqot'in and Dakelh people in the Roman Catholic faith. He got permission from the Ulkatcho people to build a church at Ulkatcho Village.

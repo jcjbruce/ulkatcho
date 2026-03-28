@@ -156,7 +156,7 @@ export default function Contact() {
             <div className="flex gap-3 mt-6">
               {[
                 { icon: Facebook, href: "https://www.facebook.com/UlkatchoFirstNation", label: "Facebook" },
-                { icon: Linkedin, href: "#", label: "LinkedIn" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/ulkatcho-first-nation", label: "LinkedIn" },
                 { icon: Youtube, href: "https://www.youtube.com/@ulkatchofirstnation", label: "YouTube" },
               ].map(({ icon: Icon, href, label }) => (
                 <a

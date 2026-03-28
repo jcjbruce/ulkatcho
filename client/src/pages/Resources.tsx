@@ -218,7 +218,6 @@ export default function Resources() {
         image={HERO_IMAGE}
         label="Community Documents"
         heading="Resources"
-        subtitle="Access forms, notices, programs, and important documents for community members."
         bgPosition="center 60%"
         breadcrumbs={[
           { label: "Home", href: "/" },

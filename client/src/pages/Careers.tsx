@@ -45,9 +45,15 @@ export default function Careers() {
     return () => observer.disconnect();
   }, []);
 
-  const filteredJobs = allJobs.filter((job) =>
-    keywords ? job.title.toLowerCase().includes(keywords.toLowerCase()) : true
-  );
+  const activeFilterTypes = Object.entries(filters)
+    .filter(([, active]) => active)
+    .map(([type]) => type);
+
+  const filteredJobs = allJobs.filter((job) => {
+    const matchesKeyword = keywords ? job.title.toLowerCase().includes(keywords.toLowerCase()) : true;
+    const matchesType = activeFilterTypes.length === 0 || activeFilterTypes.includes(job.type);
+    return matchesKeyword && matchesType;
+  });
 
   const toggleFilter = (name: string) => setFilters((prev) => ({ ...prev, [name]: !prev[name] }));
 

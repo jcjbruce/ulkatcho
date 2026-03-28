@@ -7,6 +7,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SimplePageHeader from "@/components/SimplePageHeader";
+import { Link } from "wouter";
 
 const PORTRAIT_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/46917-1605x2048_b789a29d.jpg";
 const PORTRAIT_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/55694-edited-683x1024_2499b117.jpg";
@@ -178,6 +179,30 @@ export default function AncestralOrigins() {
               That's why so many Nus'qulst people are in Anahim Lake. They get mixed up with the people there and get married.
             </p>
           </section>
+
+          {/* Explore More */}
+          <div className="text-center pt-8 pb-4">
+            <h2 className="mb-6" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.5rem", color: "#1a2e5a" }}>
+              Explore More
+            </h2>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/history-of-ulkatcho-first-nation">
+                <button className="ufn-btn-primary">
+                  History of UFN
+                </button>
+              </Link>
+              <Link href="/travellers-entrepreneurs">
+                <button className="ufn-btn-outline">
+                  Travellers & Entrepreneurs
+                </button>
+              </Link>
+              <Link href="/vision-future">
+                <button className="ufn-btn-outline">
+                  Vision & Future
+                </button>
+              </Link>
+            </div>
+          </div>
 
         </div>
       </div>

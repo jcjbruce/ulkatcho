@@ -6,7 +6,7 @@
 
 import { useState } from "react";
 import { Link } from "wouter";
-import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, ArrowLeft, X } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
 
 export default function MemberPortal() {
@@ -22,20 +22,33 @@ export default function MemberPortal() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="min-h-screen flex flex-col relative"
       style={{
         backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/hero-landscape_dc4795fe.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center 40%",
+        backgroundAttachment: "fixed",
       }}
     >
       {/* Overlay */}
       <div
-        className="absolute inset-0"
+        className="fixed inset-0"
         style={{ backgroundColor: "rgba(26, 26, 24, 0.82)" }}
       />
 
-
+      {/* Close / X button */}
+      <div className="relative z-10 flex justify-end p-4">
+        <Link href="/">
+          <button
+            className="w-10 h-10 flex items-center justify-center transition-all duration-200 cursor-pointer border-0"
+            style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.25)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.1)"; }}
+          >
+            <X size={20} style={{ color: "rgba(255,255,255,0.7)" }} />
+          </button>
+        </Link>
+      </div>
 
       {/* Login Card */}
       <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-12">
