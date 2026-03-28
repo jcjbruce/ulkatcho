@@ -11,10 +11,25 @@ import PageHero from "@/components/PageHero";
 import { Link } from "wouter";
 import { MapPin, Mail, Phone, Facebook, Youtube, User } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/ulkatcho-mountain-peak_640350dd.jpg";
 
 export default function Contact() {
+  const { get } = useSiteContent("contact", {
+    "hero.label": "Get in Touch",
+    "hero.heading": "Contact Us",
+    "main.phone": "(250) 742-3288",
+    "main.toll_free": "Toll Free: (877) 837-6369",
+    "main.health_clinic": "Health Clinic: (250) 742-2090",
+    "main.fax": "Fax: (250) 742-3411",
+    "main.address_line1": "P.O. Box 3430",
+    "main.address_line2": "Anahim Lake, BC V0L 1C0",
+    "form.label": "Send a Message",
+    "form.heading": "Looking for Help or Have a Question?",
+    "form.paragraph": "Ulkatcho First Nation staff are here to assist community members, partners, and visitors. Please fill out the form below or contact the Band Office directly.",
+  });
+
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
 
   useEffect(() => {
@@ -46,8 +61,8 @@ export default function Contact() {
 
       <PageHero
         image={HERO_IMAGE}
-        label="Get in Touch"
-        heading="Contact Us"
+        label={get("hero.label")}
+        heading={get("hero.heading")}
         bgPosition="center 30%"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -62,18 +77,18 @@ export default function Contact() {
             <MapPin size={28} className="mx-auto mb-3" style={{ color: "#c9a227" }} />
             <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>Address</p>
             <p style={{ fontFamily: "Lora, serif", color: "#ffffff" }}>
-              P.O. Box 3430<br />Anahim Lake, BC V0L 1C0
+              {get("main.address_line1")}<br />{get("main.address_line2")}
             </p>
           </div>
           <div className="p-6 text-center" style={{ backgroundColor: "#1a2e5a" }}>
             <Phone size={28} className="mx-auto mb-3" style={{ color: "#c9a227" }} />
             <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>Main Office</p>
-            <a href="tel:+12507423288" style={{ fontFamily: "Lora, serif", color: "#ffffff" }}>(250) 742-3288</a>
+            <a href="tel:+12507423288" style={{ fontFamily: "Lora, serif", color: "#ffffff" }}>{get("main.phone")}</a>
             <p className="mt-2" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.6)", fontSize: "0.85rem" }}>
-              Toll Free: (877) 837-6369
+              {get("main.toll_free")}
             </p>
             <p className="mt-1" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.6)", fontSize: "0.85rem" }}>
-              Health Clinic: (250) 742-2090
+              {get("main.health_clinic")}
             </p>
           </div>
           <div className="p-6 text-center" style={{ backgroundColor: "#1a2e5a" }}>
@@ -81,7 +96,7 @@ export default function Contact() {
             <p className="font-ui text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>Email</p>
             <ProtectedEmail user="info" domain="ulkatcho.ca" style={{ fontFamily: "Lora, serif", color: "#ffffff" }} showIcon={true} />
             <p className="mt-2" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.6)", fontSize: "0.85rem" }}>
-              Fax: (250) 742-3411
+              {get("main.fax")}
             </p>
           </div>
         </div>
@@ -90,13 +105,13 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-14">
           {/* Left: Form */}
           <div className="scroll-reveal">
-            <div className="ufn-section-label mb-3">Send a Message</div>
+            <div className="ufn-section-label mb-3">{get("form.label")}</div>
             <div className="ufn-divider" />
             <h2 className="mt-4 mb-4" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "2rem", color: "#1a2e5a" }}>
-              Looking for Help or Have a Question?
+              {get("form.heading")}
             </h2>
             <p className="mb-8 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#555", fontSize: "0.95rem" }}>
-              Ulkatcho First Nation staff are here to assist community members, partners, and visitors. Please fill out the form below or contact the Band Office directly.
+              {get("form.paragraph")}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">

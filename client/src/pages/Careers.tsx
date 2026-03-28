@@ -12,12 +12,24 @@ import { Link } from "wouter";
 import { Briefcase, ChevronRight, Users, Star, Search } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
 import { getCommunityJobs, getPartnerJobs, type Job } from "@/lib/jobs";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/ulkatcho-sunset-enhanced_6d1d73f6.jpg";
 
 const filterTypes = ["Freelance", "Full Time", "Internship", "Part Time", "Temporary"];
 
 export default function Careers() {
+  const { get } = useSiteContent("careers", {
+    "hero.label": "Employment Opportunities",
+    "hero.heading": "Careers",
+    "priority_policy.heading": "Internal Priority Hiring Policy",
+    "priority_policy.paragraph": "Ulkatcho First Nation gives priority consideration to qualified Ulkatcho First Nation members for all employment opportunities within the Nation's administration and programs. Members are encouraged to apply for all posted positions.",
+    "priority_policy.contact_text": "Contact:",
+    "partner.label": "Partner Organizations",
+    "partner.heading": "Artemis Gold Opportunities",
+    "partner.paragraph": "Artemis Gold is a key industry partner of Ulkatcho First Nation. Members are encouraged to explore employment and business opportunities through Artemis Gold's Blackwater Gold Project, which is located within the Nation's traditional territory.",
+  });
+
   const [keywords, setKeywords] = useState("");
   const [allJobs, setAllJobs] = useState<Job[]>([]);
   const [partnerJobs, setPartnerJobs] = useState<Job[]>([]);
@@ -63,8 +75,8 @@ export default function Careers() {
 
       <PageHero
         image={HERO_IMAGE}
-        label="Employment Opportunities"
-        heading="Careers"
+        label={get("hero.label")}
+        heading={get("hero.heading")}
         bgPosition="center 40%"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -79,13 +91,13 @@ export default function Careers() {
             <Star size={22} className="shrink-0 mt-0.5" style={{ color: "#c9a227" }} />
             <div>
               <h2 className="mb-2" style={{ fontFamily: "Playfair Display, serif", fontWeight: 600, fontSize: "1.3rem", color: "#ffffff" }}>
-                Internal Priority Hiring Policy
+                {get("priority_policy.heading")}
               </h2>
               <p className="leading-relaxed" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.85)", fontSize: "0.95rem" }}>
-                Ulkatcho First Nation gives priority consideration to qualified Ulkatcho First Nation members for all employment opportunities within the Nation's administration and programs. Members are encouraged to apply for all posted positions.
+                {get("priority_policy.paragraph")}
               </p>
               <p className="mt-3" style={{ fontFamily: "Lora, serif", color: "rgba(255,255,255,0.7)", fontSize: "0.9rem" }}>
-                Contact:{" "}
+                {get("priority_policy.contact_text")}{" "}
                 <ProtectedEmail user="OperationsManager" domain="ulkatcho.ca" />{" "}· ext. 218
               </p>
             </div>
@@ -164,15 +176,15 @@ export default function Careers() {
               <Users size={22} style={{ color: "#ffffff" }} />
             </div>
             <div>
-              <div className="ufn-section-label mb-1">Partner Organizations</div>
+              <div className="ufn-section-label mb-1">{get("partner.label")}</div>
               <h2 style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.85rem", color: "#1a2e5a" }}>
-                Artemis Gold Opportunities
+                {get("partner.heading")}
               </h2>
             </div>
           </div>
 
           <p className="mb-8 max-w-2xl" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-            Artemis Gold is a key industry partner of Ulkatcho First Nation. Members are encouraged to explore employment and business opportunities through Artemis Gold's Blackwater Gold Project, which is located within the Nation's traditional territory.
+            {get("partner.paragraph")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

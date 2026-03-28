@@ -2,24 +2,26 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Link } from "wouter";
-import { Briefcase, FileText, Building2, UserCircle } from "lucide-react";
+import { Briefcase, FileText, Building2, UserCircle, Users } from "lucide-react";
 
 export default function AdminDashboard() {
-  const [counts, setCounts] = useState({ jobs: 0, resources: 0, departments: 0, council: 0 });
+  const [counts, setCounts] = useState({ jobs: 0, resources: 0, departments: 0, council: 0, pendingMembers: 0 });
 
   useEffect(() => {
     async function load() {
-      const [jobs, resources, departments, council] = await Promise.all([
+      const [jobs, resources, departments, council, members] = await Promise.all([
         supabase.from("jobs").select("id", { count: "exact", head: true }),
         supabase.from("resources").select("id", { count: "exact", head: true }),
         supabase.from("departments").select("id", { count: "exact", head: true }),
         supabase.from("council_members").select("id", { count: "exact", head: true }),
+        supabase.from("member_applications").select("id", { count: "exact", head: true }).eq("status", "pending"),
       ]);
       setCounts({
         jobs: jobs.count ?? 0,
         resources: resources.count ?? 0,
         departments: departments.count ?? 0,
         council: council.count ?? 0,
+        pendingMembers: members.count ?? 0,
       });
     }
     load();
@@ -30,6 +32,7 @@ export default function AdminDashboard() {
     { label: "Resources", count: counts.resources, icon: FileText, href: "/admin/resources", color: "#2a4a7a" },
     { label: "Departments", count: counts.departments, icon: Building2, href: "/admin/departments", color: "#8b6420" },
     { label: "Council Members", count: counts.council, icon: UserCircle, href: "/admin/council", color: "#c9a227" },
+    { label: "Pending Applications", count: counts.pendingMembers, icon: Users, href: "/admin/members", color: "#16a34a" },
   ];
 
   return (

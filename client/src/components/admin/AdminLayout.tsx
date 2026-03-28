@@ -9,6 +9,7 @@ const navItems = [
   { label: "Resources", href: "/admin/resources", icon: FileText },
   { label: "Departments", href: "/admin/departments", icon: Building2 },
   { label: "Council", href: "/admin/council", icon: UserCircle },
+  { label: "Members", href: "/admin/members", icon: Users },
   { label: "Site Content", href: "/admin/content", icon: Settings },
 ];
 

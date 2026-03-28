@@ -15,6 +15,8 @@ import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import ChiefCouncil from "./pages/ChiefCouncil";
 import MemberPortal from "./pages/MemberPortal";
+import MemberRegistration from "./pages/MemberRegistration";
+import MemberDashboard from "./pages/MemberDashboard";
 import VisionFuture from "./pages/VisionFuture";
 import HistoryPage from "./pages/HistoryPage";
 import AncestralOrigins from "./pages/AncestralOrigins";
@@ -28,6 +30,7 @@ import ResourcesManager from "./pages/admin/ResourcesManager";
 import DepartmentsManager from "./pages/admin/DepartmentsManager";
 import CouncilManager from "./pages/admin/CouncilManager";
 import SiteContentEditor from "./pages/admin/SiteContentEditor";
+import MemberApplicationsManager from "./pages/admin/MemberApplicationsManager";
 
 function AdminRoute({ component: Component }: { component: React.ComponentType }) {
   const { user, loading } = useAuth();
@@ -59,12 +62,15 @@ function Router() {
       <Route path="/departments" component={Departments} />
       <Route path="/chief-council" component={ChiefCouncil} />
       <Route path="/member-portal" component={MemberPortal} />
+      <Route path="/member-registration" component={MemberRegistration} />
+      <Route path="/member-dashboard" component={MemberDashboard} />
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/jobs">{() => <AdminRoute component={JobsManager} />}</Route>
       <Route path="/admin/resources">{() => <AdminRoute component={ResourcesManager} />}</Route>
       <Route path="/admin/departments">{() => <AdminRoute component={DepartmentsManager} />}</Route>
       <Route path="/admin/council">{() => <AdminRoute component={CouncilManager} />}</Route>
       <Route path="/admin/content">{() => <AdminRoute component={SiteContentEditor} />}</Route>
+      <Route path="/admin/members">{() => <AdminRoute component={MemberApplicationsManager} />}</Route>
       <Route path="/admin">{() => <AdminRoute component={AdminDashboard} />}</Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

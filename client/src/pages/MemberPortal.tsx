@@ -1,23 +1,60 @@
 /*
  * ULKATCHO FIRST NATION — Member Portal Page
  * Theme: River Stone & Birch
- * Frontend only — login form UI, no backend connection
+ * Authenticates members via Supabase Auth
  */
 
-import { useState } from "react";
-import { Link } from "wouter";
-import { Eye, EyeOff, Lock, Mail, ArrowLeft, X } from "lucide-react";
-import ProtectedEmail from "@/components/ProtectedEmail";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { Eye, EyeOff, Lock, Mail, ArrowLeft, X, UserPlus } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
 
 export default function MemberPortal() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
+  const { signIn, isMember, isAdmin, loading } = useAuth();
+  const [, setLocation] = useLocation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Redirect if already logged in
+  useEffect(() => {
+    if (!loading && isMember) {
+      setLocation(isAdmin ? "/admin" : "/member-dashboard");
+    }
+  }, [loading, isMember, isAdmin, setLocation]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Frontend only — backend connection to be added separately
-    alert("Member portal backend connection coming soon. Please contact info@ulkatcho.ca for assistance.");
+    setError("");
+    setSubmitting(true);
+
+    const { error: authError } = await signIn(email, password);
+    setSubmitting(false);
+
+    if (authError) {
+      setError("Invalid email or password. Please try again.");
+      return;
+    }
+    // Auth state change will trigger redirect via useEffect
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError("Please enter your email address first, then click Forgot Password.");
+      return;
+    }
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/member-portal`,
+    });
+    if (resetError) {
+      setError("Unable to send reset email. Please contact info@ulkatcho.ca.");
+      return;
+    }
+    setResetSent(true);
   };
 
   return (
@@ -89,6 +126,18 @@ export default function MemberPortal() {
             >
               Ulkatcho First Nation members only
             </p>
+
+            {error && (
+              <div className="mb-4 p-3 text-sm" style={{ backgroundColor: "rgba(220,38,38,0.1)", color: "#dc2626", fontFamily: "Lora, serif" }}>
+                {error}
+              </div>
+            )}
+
+            {resetSent && (
+              <div className="mb-4 p-3 text-sm" style={{ backgroundColor: "rgba(22,163,74,0.1)", color: "#16a34a", fontFamily: "Lora, serif" }}>
+                Password reset email sent. Check your inbox.
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Email */}
@@ -185,7 +234,7 @@ export default function MemberPortal() {
                   style={{ color: "#8b6420" }}
                   onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#c9a227")}
                   onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#8b6420")}
-                  onClick={() => alert("Please contact info@ulkatcho.ca to reset your password.")}
+                  onClick={handleForgotPassword}
                 >
                   Forgot Password?
                 </button>
@@ -194,21 +243,28 @@ export default function MemberPortal() {
               {/* Submit */}
               <button
                 type="submit"
+                disabled={submitting}
                 className="ufn-btn-primary w-full py-3.5 text-center"
+                style={{ opacity: submitting ? 0.7 : 1 }}
               >
-                Sign In to Member Portal
+                {submitting ? "Signing In..." : "Sign In to Member Portal"}
               </button>
             </form>
 
-            {/* Help text */}
+            {/* Register link */}
             <div
               className="mt-8 pt-6"
               style={{ borderTop: "1px solid #dce6ef" }}
             >
-              <p className="text-sm text-center" style={{ fontFamily: "Lora, serif", color: "#8b6420" }}>
-                Need access? Contact{" "}
-                <ProtectedEmail user="info" domain="ulkatcho.ca" />
-              </p>
+              <Link href="/member-registration">
+                <span
+                  className="flex items-center justify-center gap-2 text-sm cursor-pointer transition-colors duration-200"
+                  style={{ fontFamily: "Lora, serif", color: "#1a2e5a" }}
+                >
+                  <UserPlus size={15} style={{ color: "#8b6420" }} />
+                  Request Member Access
+                </span>
+              </Link>
             </div>
           </div>
         </div>

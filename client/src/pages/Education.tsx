@@ -12,6 +12,7 @@ import PageHero from "@/components/PageHero";
 import DocumentPreview, { useDocumentPreview } from "@/components/DocumentPreview";
 import { FileText, ExternalLink, BookOpen, GraduationCap, Eye } from "lucide-react";
 import ProtectedEmail from "@/components/ProtectedEmail";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/about-land_2333c284.jpg";
 const CULTURAL_ILLUSTRATION = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/Screenshot2026-03-19at9.27.10PM_8aa0bcf0.webp";
@@ -114,6 +115,21 @@ function DocCard({
 }
 
 export default function Education() {
+  const { get } = useSiteContent("education", {
+    "hero.label": "Education & Training",
+    "hero.heading": "Education Programs",
+    "intro.paragraph": "Ulkatcho First Nation is committed to supporting the educational journey of all members — from kindergarten through post-secondary. Below you will find all required forms and application packages. Contact the Education Department with any questions.",
+    "important_note.heading": "Important: All K–12 forms are due August 25",
+    "important_note.text": "Contact the K-12 Education Advocate with any questions about forms or deadlines.",
+    "k12.label": "Forms & Applications",
+    "k12.heading": "K–12 Education",
+    "k12.contact_text": "Contact the K-12 Education Advocate at",
+    "postsec.label": "Forms & Applications",
+    "postsec.heading": "Post-Secondary Education",
+    "postsec.deadlines_heading": "Application Deadlines",
+    "postsec.contact_person": "Corrine Cahoose",
+    "postsec.contact_extension": "209",
+  });
   const { preview, openPreview, closePreview } = useDocumentPreview();
 
   useEffect(() => {
@@ -131,8 +147,8 @@ export default function Education() {
 
       <PageHero
         image={HERO_IMAGE}
-        label="Education & Training"
-        heading="Education Programs"
+        label={get("hero.label")}
+        heading={get("hero.heading")}
         bgPosition="center 60%"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -144,14 +160,14 @@ export default function Education() {
         {/* Intro */}
         <div className="max-w-4xl mx-auto mb-14 scroll-reveal text-center">
           <p className="text-lg leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333" }}>
-            Ulkatcho First Nation is committed to supporting the educational journey of all members — from kindergarten through post-secondary. Below you will find all required forms and application packages. Contact the Education Department with any questions.
+            {get("intro.paragraph")}
           </p>
           <div className="mt-6 p-5 text-center" style={{ backgroundColor: "#e8eef4", borderLeft: "4px solid #c9a227", border: "1px solid #b8c8d6", borderLeftWidth: "4px", borderLeftColor: "#c9a227" }}>
             <p className="font-semibold mb-1" style={{ fontFamily: "Playfair Display, serif", color: "#1a2e5a" }}>
-              Important: All K–12 forms are due August 25
+              {get("important_note.heading")}
             </p>
             <p className="text-sm" style={{ fontFamily: "Lora, serif", color: "#555" }}>
-              Contact the K-12 Education Advocate with any questions about forms or deadlines.
+              {get("important_note.text")}
             </p>
           </div>
         </div>
@@ -163,9 +179,9 @@ export default function Education() {
               <BookOpen size={22} style={{ color: "#c9a227" }} />
             </div>
             <div>
-              <div className="ufn-section-label mb-1">Forms & Applications</div>
+              <div className="ufn-section-label mb-1">{get("k12.label")}</div>
               <h2 style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.85rem", color: "#1a2e5a" }}>
-                K–12 Education
+                {get("k12.heading")}
               </h2>
             </div>
           </div>
@@ -180,7 +196,7 @@ export default function Education() {
 
           <div className="mt-6 p-4" style={{ backgroundColor: "#e8eef4", border: "1px solid #b8c8d6" }}>
             <p className="text-sm" style={{ fontFamily: "Lora, serif", color: "#555" }}>
-              <strong style={{ color: "#1a2e5a" }}>Questions?</strong> Contact the K-12 Education Advocate at{" "}
+              <strong style={{ color: "#1a2e5a" }}>Questions?</strong> {get("k12.contact_text")}{" "}
               <ProtectedEmail user="k-12liaison" domain="ulkatcho.ca" />{" "}
               or call ext. 212.
             </p>
@@ -204,9 +220,9 @@ export default function Education() {
               <GraduationCap size={22} style={{ color: "#ffffff" }} />
             </div>
             <div>
-              <div className="ufn-section-label mb-1">Forms & Applications</div>
+              <div className="ufn-section-label mb-1">{get("postsec.label")}</div>
               <h2 style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.85rem", color: "#1a2e5a" }}>
-                Post-Secondary Education
+                {get("postsec.heading")}
               </h2>
             </div>
           </div>
@@ -214,7 +230,7 @@ export default function Education() {
           {/* Deadlines */}
           <div className="mb-8 p-5" style={{ backgroundColor: "#e8eef4", borderLeft: "4px solid #8b6420", border: "1px solid #b8c8d6", borderLeftWidth: "4px", borderLeftColor: "#8b6420" }}>
             <p className="font-semibold mb-3" style={{ fontFamily: "Playfair Display, serif", color: "#1a2e5a" }}>
-              Application Deadlines
+              {get("postsec.deadlines_heading")}
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
@@ -245,9 +261,9 @@ export default function Education() {
 
           <div className="mt-6 p-4" style={{ backgroundColor: "#e8eef4", border: "1px solid #b8c8d6" }}>
             <p className="text-sm" style={{ fontFamily: "Lora, serif", color: "#555" }}>
-              <strong style={{ color: "#1a2e5a" }}>Post-Secondary Contact:</strong> Corrine Cahoose —{" "}
+              <strong style={{ color: "#1a2e5a" }}>Post-Secondary Contact:</strong> {get("postsec.contact_person")} —{" "}
               <ProtectedEmail user="postsecondary" domain="ulkatcho.ca" />{" "}
-              · ext. 209
+              · ext. {get("postsec.contact_extension")}
             </p>
           </div>
         </section>

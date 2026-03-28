@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import {
   Heart, GraduationCap, Home as HomeIcon, Leaf, DollarSign, Users,
   Building2, BookOpen, Compass, ChevronRight, MapPin, Phone, Mail,
@@ -109,6 +110,30 @@ const culturePoints = [
 ];
 
 export default function Home() {
+  const { get } = useSiteContent("home", {
+    "emergency_banner.is_visible": String(SHOW_EMERGENCY_BANNER),
+    "emergency_banner.text": EMERGENCY_BANNER_TEXT,
+    "hero.label": "Dakelh / Carrier Nation · Anahim Lake, BC",
+    "hero.heading_line1": "Rooted in the Land,",
+    "hero.heading_line2": "Strong in Our People",
+    "hero.subheading": "Working together for the health, strength, and future of our Nation — guided by the knowledge of Elders and the strength of our youth.",
+    "leadership_message.label": "Message from Leadership",
+    "leadership_message.heading_line1": "A Message from",
+    "leadership_message.heading_line2": "Chief and Council",
+    "leadership_message.paragraph1": "The Ulkatcho First Nation is guided by a vision of an independent Nation and an interconnected community, working together for all generations. Chief and Council are committed to supporting the well-being of members and building a strong, sustainable future.",
+    "leadership_message.paragraph2": "Through transparent, respectful, and efficient services, leadership works to create opportunities for physical, cultural, spiritual, mental, economic, and social wellness for all members.",
+    "leadership_message.chief_name": "Derech Sill",
+    "leadership_message.chief_title": "Chief, Ulkatcho First Nation",
+    "leadership_message.quote": "Working together for the health, strength, and future of our Nation.",
+    "community_services.label": "Our Community",
+    "community_services.heading": "Community Services",
+    "community_services.paragraph": "Ulkatcho First Nation provides programs and services that support the health, well-being, and future of our members.",
+    "culture_land.label": "Our Land, Our Story",
+    "culture_land.heading": "Connected to Our Territory",
+    "culture_land.paragraph1": "From the Anahim Lake plateau to our ancestral territories, our people have lived on and cared for this land for generations. Guided by Elders and traditional knowledge, we work together to protect our culture, our wildlife, and the future of our Nation.",
+    "culture_land.paragraph2": "The land continues to guide how we live, learn, and work together — through pine mushrooms and soapberries, moose and caribou, rivers and trails, the Dakelh language, and the wisdom shared between Elders and youth.",
+  });
+
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -136,7 +161,7 @@ export default function Home() {
       <Navbar />
 
       {/* Emergency Banner */}
-      {SHOW_EMERGENCY_BANNER && (
+      {get("emergency_banner.is_visible") === "true" && (
         <div
           className="emergency-pulse fixed top-16 md:top-20 left-0 right-0 z-40 py-3 px-4"
           style={{ backgroundColor: "#b91c1c" }}
@@ -144,7 +169,7 @@ export default function Home() {
           <div className="container flex items-center justify-center gap-3">
             <AlertTriangle size={16} style={{ color: "#fff" }} />
             <p className="font-ui text-xs tracking-wider text-center" style={{ color: "#fff" }}>
-              {EMERGENCY_BANNER_TEXT}
+              {get("emergency_banner.text")}
             </p>
           </div>
         </div>
@@ -186,7 +211,7 @@ export default function Home() {
           <div className="container">
             <div className="max-w-2xl">
               <div className="ufn-section-label mb-4 animate-fade-in-up" style={{ animationDelay: "0.1s", color: "#c9a227" }}>
-                Dakelh / Carrier Nation · Anahim Lake, BC
+                {get("hero.label")}
               </div>
               <h1
                 className="mb-6 leading-tight animate-fade-in-up"
@@ -198,9 +223,9 @@ export default function Home() {
                   animationDelay: "0.2s",
                 }}
               >
-                Rooted in the Land,
+                {get("hero.heading_line1")}
                 <br />
-                <em style={{ color: "#c9a227" }}>Strong in Our People</em>
+                <em style={{ color: "#c9a227" }}>{get("hero.heading_line2")}</em>
               </h1>
               <p
                 className="mb-8 max-w-xl leading-relaxed animate-fade-in-up"
@@ -211,8 +236,7 @@ export default function Home() {
                   animationDelay: "0.35s",
                 }}
               >
-                Working together for the health, strength, and future of our Nation —
-                guided by the knowledge of Elders and the strength of our youth.
+                {get("hero.subheading")}
               </p>
               <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
                 <Link href="/about">
@@ -314,7 +338,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Text */}
             <div className="scroll-reveal">
-              <div className="ufn-section-label mb-3">Message from Leadership</div>
+              <div className="ufn-section-label mb-3">{get("leadership_message.label")}</div>
               <div className="ufn-divider" />
               <h2
                 className="mb-6"
@@ -326,15 +350,15 @@ export default function Home() {
                   color: "#1a2e5a",
                 }}
               >
-                A Message from
+                {get("leadership_message.heading_line1")}
                 <br />
-                Chief and Council
+                {get("leadership_message.heading_line2")}
               </h2>
               <p className="mb-5 leading-relaxed" style={{ fontFamily: "Lora, serif", fontSize: "1.05rem", color: "#333" }}>
-                The Ulkatcho First Nation is guided by a vision of an independent Nation and an interconnected community, working together for all generations. Chief and Council are committed to supporting the well-being of members and building a strong, sustainable future.
+                {get("leadership_message.paragraph1")}
               </p>
               <p className="mb-8 leading-relaxed" style={{ fontFamily: "Lora, serif", fontSize: "1.05rem", color: "#333" }}>
-                Through transparent, respectful, and efficient services, leadership works to create opportunities for physical, cultural, spiritual, mental, economic, and social wellness for all members.
+                {get("leadership_message.paragraph2")}
               </p>
               <div>
                 <p
@@ -347,13 +371,13 @@ export default function Home() {
                     marginBottom: "0.25rem",
                   }}
                 >
-                  Derech Sill
+                  {get("leadership_message.chief_name")}
                 </p>
                 <p
                   className="font-ui font-semibold tracking-widest uppercase"
                   style={{ color: "#8b6420", fontSize: "0.75rem" }}
                 >
-                  Chief, Ulkatcho First Nation
+                  {get("leadership_message.chief_title")}
                 </p>
               </div>
               <div className="mt-6">
@@ -377,7 +401,7 @@ export default function Home() {
                   style={{ background: "linear-gradient(to top, rgba(26,46,90,0.9) 0%, transparent 100%)" }}
                 >
                   <p className="italic text-lg leading-snug" style={{ fontFamily: "Playfair Display, serif", color: "#ffffff" }}>
-                    "Working together for the health, strength, and future of our Nation."
+                    "{get("leadership_message.quote")}"
                   </p>
                 </div>
               </div>
@@ -474,7 +498,7 @@ export default function Home() {
       <section className="py-20" style={{ backgroundColor: "#c8d5e0" }}>
         <div className="container">
           <div className="text-center mb-14 scroll-reveal">
-            <div className="ufn-section-label mb-3">Our Community</div>
+            <div className="ufn-section-label mb-3">{get("community_services.label")}</div>
             <div className="ufn-divider mx-auto" />
             <h2
               className="mt-4"
@@ -485,10 +509,10 @@ export default function Home() {
                 color: "#1a2e5a",
               }}
             >
-              Community Services
+              {get("community_services.heading")}
             </h2>
             <p className="mt-4 max-w-2xl mx-auto" style={{ fontFamily: "Lora, serif", color: "#555", fontSize: "1.05rem" }}>
-              Ulkatcho First Nation provides programs and services that support the health, well-being, and future of our members.
+              {get("community_services.paragraph")}
             </p>
           </div>
 
@@ -546,7 +570,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-reveal">
               <div className="ufn-section-label mb-3" style={{ color: "#c9a227" }}>
-                Our Land, Our Story
+                {get("culture_land.label")}
               </div>
               <div className="ufn-divider" style={{ backgroundColor: "#c9a227" }} />
               <h2
@@ -559,13 +583,13 @@ export default function Home() {
                   lineHeight: 1.2,
                 }}
               >
-                Connected to Our Territory
+                {get("culture_land.heading")}
               </h2>
               <p className="mb-5 leading-relaxed" style={{ fontFamily: "Lora, serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)" }}>
-                From the Anahim Lake plateau to our ancestral territories, our people have lived on and cared for this land for generations. Guided by Elders and traditional knowledge, we work together to protect our culture, our wildlife, and the future of our Nation.
+                {get("culture_land.paragraph1")}
               </p>
               <p className="mb-8 leading-relaxed" style={{ fontFamily: "Lora, serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)" }}>
-                The land continues to guide how we live, learn, and work together — through pine mushrooms and soapberries, moose and caribou, rivers and trails, the Dakelh language, and the wisdom shared between Elders and youth.
+                {get("culture_land.paragraph2")}
               </p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {cultureTags.map((tag) => (

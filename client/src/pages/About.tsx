@@ -11,6 +11,7 @@ import PageHero from "@/components/PageHero";
 import DocumentPreview, { useDocumentPreview } from "@/components/DocumentPreview";
 import { Link } from "wouter";
 import { FileText, Eye } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const KEY_DOCUMENTS = [
   { title: "Strategic Plan 2022\u20132027", url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/THE%20UFN%20STRATEGIC%20PLAN%202022%20-%202027_f6cd9bb5.pdf", type: "PDF" },
@@ -25,6 +26,31 @@ const CULTURE_STRIP = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/
 const TERRITORY_IMAGE = "https://nativeacademy.org/wp-content/uploads/2026/02/jcjbruce_wide_view_of_northern_wilderness_with_river_evergree_a8a597ca-47a9-4c69-be99-602622fc9d8f_1-771x1024.png";
 
 export default function About() {
+  const { get } = useSiteContent("about", {
+    "hero.label": "About Ulkatcho First Nation",
+    "hero.heading": "Our Nation, Our Story",
+    "vision.label": "Our Vision",
+    "vision.heading": "Our Vision & Future",
+    "vision.paragraph1": "Ulkatcho First Nation envisions an independent Nation and an interconnected community — one where all generations thrive together. Our vision is rooted in the land, guided by our Elders, and carried forward by our youth.",
+    "vision.paragraph2": "We are committed to building a Nation where members have access to quality housing, education, health services, and economic opportunities — all while maintaining and strengthening our cultural identity as Dakelh / Carrier people.",
+    "vision.paragraph3": "Our priorities include self-determination, transparent governance, environmental stewardship of our ancestral territories, and the revitalization of the Dakelh language and cultural practices for future generations.",
+    "vision.quote": "An independent Nation and an interconnected community, working together for all generations.",
+    "history.label": "Our Past",
+    "history.heading": "History of UFN",
+    "history.paragraph1": "The Ulkatcho First Nation is a Dakelh (Carrier) Nation whose people have inhabited the Chilcotin plateau and surrounding mountain territories of central British Columbia since time immemorial. The name \"Ulkatcho\" refers to the people of the high country — a reflection of the elevated, rugged landscape that has shaped the culture and identity of this Nation.",
+    "history.paragraph2": "Historically, the Ulkatcho people were semi-nomadic, following seasonal patterns of the land — harvesting pine mushrooms and soapberries in the forests, fishing for trout in the clear mountain rivers, hunting moose and caribou across vast territories, and gathering at seasonal camps to share knowledge and ceremony.",
+    "history.paragraph3": "The community is centered in Anahim Lake, BC, a remote community in the Chilcotin region. Despite the challenges of colonization, the Ulkatcho people have maintained a deep connection to their territory, language, and traditions.",
+    "history.paragraph4": "Today, Ulkatcho First Nation is a registered band under the Indian Act with an elected Chief and Council. The Nation has been actively involved in land use planning, forestry agreements, and economic development initiatives that reflect both traditional values and contemporary needs.",
+    "origins.label": "Our Roots",
+    "origins.heading": "Ancestral Origins",
+    "origins.paragraph1": "The Ulkatcho people are part of the broader Dakelh (Carrier) Nation, one of the largest Indigenous language groups in British Columbia. The Dakelh language belongs to the Athabaskan language family and is spoken across a vast territory in central BC.",
+    "origins.paragraph2": "The ancestral territory of Ulkatcho First Nation encompasses the Anahim Lake area, the Itcha-Ilgachuz mountain ranges, the Dean River watershed, and extensive plateau lands. This territory is rich in wildlife — moose, caribou, grizzly bear, wolves — and in cultural significance, marked by ancient trails, obsidian quarry sites, and places of ceremony.",
+    "origins.paragraph3": "Obsidian — volcanic glass found in the territory — was historically traded across vast distances, evidence of the Ulkatcho people's role as skilled travellers and traders long before European contact.",
+    "travellers.label": "Our Spirit",
+    "travellers.heading": "Travellers & Entrepreneurs",
+    "travellers.paragraph1": "The Ulkatcho people have always been entrepreneurial by nature. Long before European contact, they were skilled traders who moved obsidian and other goods across vast networks connecting interior and coastal peoples. This spirit of enterprise and adaptability continues today.",
+    "travellers.paragraph2": "Through the Ulkatcho Group of Companies and partnerships with resource industries, the Nation continues to build economic strength while protecting its lands and asserting its rights.",
+  });
   const { preview, openPreview, closePreview } = useDocumentPreview();
 
   useEffect(() => {
@@ -42,8 +68,8 @@ export default function About() {
 
       <PageHero
         image={HERO_IMAGE}
-        label="About Ulkatcho First Nation"
-        heading="Our Nation, Our Story"
+        label={get("hero.label")}
+        heading={get("hero.heading")}
         bgPosition="center 30%"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -58,19 +84,19 @@ export default function About() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div className="scroll-reveal">
-              <div className="ufn-section-label mb-3">Our Vision</div>
+              <div className="ufn-section-label mb-3">{get("vision.label")}</div>
               <div className="ufn-divider" />
               <h2 className="mt-4 mb-6" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", color: "#1a2e5a" }}>
-                Our Vision & Future
+                {get("vision.heading")}
               </h2>
               <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                Ulkatcho First Nation envisions an independent Nation and an interconnected community — one where all generations thrive together. Our vision is rooted in the land, guided by our Elders, and carried forward by our youth.
+                {get("vision.paragraph1")}
               </p>
               <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                We are committed to building a Nation where members have access to quality housing, education, health services, and economic opportunities — all while maintaining and strengthening our cultural identity as Dakelh / Carrier people.
+                {get("vision.paragraph2")}
               </p>
               <p className="mb-6 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                Our priorities include self-determination, transparent governance, environmental stewardship of our ancestral territories, and the revitalization of the Dakelh language and cultural practices for future generations.
+                {get("vision.paragraph3")}
               </p>
               <Link href="/vision-future">
                 <button className="ufn-btn-primary">Our Vision & Future</button>
@@ -80,7 +106,7 @@ export default function About() {
             <div className="scroll-reveal" style={{ transitionDelay: "0.15s" }}>
               <div className="p-8" style={{ backgroundColor: "#1a2e5a", borderLeft: "4px solid #c9a227" }}>
                 <p className="text-xl italic leading-relaxed mb-6" style={{ fontFamily: "Playfair Display, serif", color: "#ffffff" }}>
-                  "An independent Nation and an interconnected community, working together for all generations."
+                  "{get("vision.quote")}"
                 </p>
                 <div className="space-y-4">
                   {[
@@ -109,23 +135,23 @@ export default function About() {
       <section id="history" className="py-20" style={{ backgroundColor: "#c8d5e0" }}>
         <div className="container">
           <div className="max-w-3xl mx-auto scroll-reveal">
-            <div className="ufn-section-label mb-3">Our Past</div>
+            <div className="ufn-section-label mb-3">{get("history.label")}</div>
             <div className="ufn-divider" />
             <h2 className="mt-4 mb-8" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", color: "#1a2e5a" }}>
-              History of UFN
+              {get("history.heading")}
             </h2>
             <div className="space-y-5">
               <p className="leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                The Ulkatcho First Nation is a Dakelh (Carrier) Nation whose people have inhabited the Chilcotin plateau and surrounding mountain territories of central British Columbia since time immemorial. The name "Ulkatcho" refers to the people of the high country — a reflection of the elevated, rugged landscape that has shaped the culture and identity of this Nation.
+                {get("history.paragraph1")}
               </p>
               <p className="leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                Historically, the Ulkatcho people were semi-nomadic, following seasonal patterns of the land — harvesting pine mushrooms and soapberries in the forests, fishing for trout in the clear mountain rivers, hunting moose and caribou across vast territories, and gathering at seasonal camps to share knowledge and ceremony.
+                {get("history.paragraph2")}
               </p>
               <p className="leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                The community is centered in Anahim Lake, BC, a remote community in the Chilcotin region. Despite the challenges of colonization, the Ulkatcho people have maintained a deep connection to their territory, language, and traditions.
+                {get("history.paragraph3")}
               </p>
               <p className="leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                Today, Ulkatcho First Nation is a registered band under the Indian Act with an elected Chief and Council. The Nation has been actively involved in land use planning, forestry agreements, and economic development initiatives that reflect both traditional values and contemporary needs.
+                {get("history.paragraph4")}
               </p>
             </div>
             <div className="mt-8">
@@ -157,19 +183,19 @@ export default function About() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div className="scroll-reveal">
-              <div className="ufn-section-label mb-3">Our Roots</div>
+              <div className="ufn-section-label mb-3">{get("origins.label")}</div>
               <div className="ufn-divider" />
               <h2 className="mt-4 mb-6" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", color: "#1a2e5a" }}>
-                Ancestral Origins
+                {get("origins.heading")}
               </h2>
               <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                The Ulkatcho people are part of the broader Dakelh (Carrier) Nation, one of the largest Indigenous language groups in British Columbia. The Dakelh language belongs to the Athabaskan language family and is spoken across a vast territory in central BC.
+                {get("origins.paragraph1")}
               </p>
               <p className="mb-4 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                The ancestral territory of Ulkatcho First Nation encompasses the Anahim Lake area, the Itcha-Ilgachuz mountain ranges, the Dean River watershed, and extensive plateau lands. This territory is rich in wildlife — moose, caribou, grizzly bear, wolves — and in cultural significance, marked by ancient trails, obsidian quarry sites, and places of ceremony.
+                {get("origins.paragraph2")}
               </p>
               <p className="mb-6 leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333", fontSize: "1.05rem" }}>
-                Obsidian — volcanic glass found in the territory — was historically traded across vast distances, evidence of the Ulkatcho people's role as skilled travellers and traders long before European contact.
+                {get("origins.paragraph3")}
               </p>
               <Link href="/ancestral-origins">
                 <button className="ufn-btn-primary">Read More</button>
@@ -196,16 +222,16 @@ export default function About() {
       <section className="py-20" style={{ backgroundColor: "#1a2e5a" }}>
         <div className="container">
           <div className="max-w-3xl mx-auto text-center scroll-reveal">
-            <div className="ufn-section-label mb-3" style={{ color: "#c9a227" }}>Our Spirit</div>
+            <div className="ufn-section-label mb-3" style={{ color: "#c9a227" }}>{get("travellers.label")}</div>
             <div className="ufn-divider mx-auto" style={{ backgroundColor: "#8b6420" }} />
             <h2 className="mt-4 mb-6" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", color: "#ffffff" }}>
-              Travellers & Entrepreneurs
+              {get("travellers.heading")}
             </h2>
             <p className="mb-5 leading-relaxed" style={{ fontFamily: "Lora, serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)" }}>
-              The Ulkatcho people have always been entrepreneurial by nature. Long before European contact, they were skilled traders who moved obsidian and other goods across vast networks connecting interior and coastal peoples. This spirit of enterprise and adaptability continues today.
+              {get("travellers.paragraph1")}
             </p>
             <p className="mb-8 leading-relaxed" style={{ fontFamily: "Lora, serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)" }}>
-              Through the Ulkatcho Group of Companies and partnerships with resource industries, the Nation continues to build economic strength while protecting its lands and asserting its rights.
+              {get("travellers.paragraph2")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mt-10">
               {[

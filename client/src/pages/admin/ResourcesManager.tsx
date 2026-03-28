@@ -10,6 +10,7 @@ type Resource = {
   file_type: string;
   category: string;
   is_active: boolean;
+  is_member_only: boolean;
   sort_order: number;
 };
 
@@ -31,6 +32,7 @@ const emptyResource = {
   file_type: "PDF",
   category: CATEGORIES[0],
   is_active: true,
+  is_member_only: false,
   sort_order: 0,
 };
 
@@ -108,6 +110,17 @@ export default function ResourcesManager() {
                 {FILE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
+          </div>
+          <div className="pt-2">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={editing.is_member_only ?? false}
+                onChange={(e) => setEditing({ ...editing, is_member_only: e.target.checked })}
+                className="accent-[#c9a227] w-4 h-4"
+              />
+              <span className="text-sm" style={{ fontFamily: "Lora, serif", color: "#333" }}>Member-only (requires portal login to view)</span>
+            </label>
           </div>
           <div className="pt-4 flex gap-3">
             <button onClick={saveResource} disabled={saving || !editing.title || !editing.url} className="px-6 py-2.5 text-sm font-semibold tracking-wider uppercase" style={{ fontFamily: "Raleway, sans-serif", backgroundColor: "#1a2e5a", color: "#ffffff", border: "none", cursor: saving ? "not-allowed" : "pointer", opacity: (saving || !editing.title || !editing.url) ? 0.7 : 1 }}>
