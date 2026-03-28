@@ -208,7 +208,7 @@ export default function Resources() {
       document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
     }, 50);
     return () => { clearTimeout(timer); observer.disconnect(); };
-  }, [activeFilter, searchQuery]);
+  }, [activeFilter, searchQuery, allDocs]);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#c8d5e0" }}>
@@ -339,7 +339,7 @@ export default function Resources() {
           {filteredDocs.length > 0 ? (
             <div className="grid grid-cols-1 gap-3">
               {filteredDocs.map((doc, i) => (
-                <div key={`${doc.title}-${i}`} className="scroll-reveal" style={{ transitionDelay: `${Math.min(i * 0.03, 0.3)}s` }}>
+                <div key={`${doc.title}-${i}`}>
                   <DocCard doc={doc} onPreview={openPreview} />
                 </div>
               ))}
