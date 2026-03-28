@@ -12,6 +12,7 @@ import SimplePageHeader from "@/components/SimplePageHeader";
 import DocumentPreview, { useDocumentPreview } from "@/components/DocumentPreview";
 import { Link } from "wouter";
 import { FileText, ChevronRight, Eye } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const STRATEGIC_PLAN_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/HuB3H4eV9r4w4hwe36fKPd/download_837c0f2c.png";
 
@@ -24,6 +25,16 @@ const downloads = [
 ];
 
 export default function VisionFuture() {
+  const { get } = useSiteContent("vision", {
+    "hero.heading": "Our Vision & Future",
+    "intro.paragraph": "Ulkatcho First Nation's strategic direction is guided by our values, our connection to the land, and the priorities identified by community members. The plans below outline how we are building a healthy, vibrant, and sustainable future for all generations.",
+    "strategic_plan.label": "Our Strategic Plan",
+    "strategic_plan.heading": "Key Elements of the Strategic Plan",
+    "downloads.label": "Documents",
+    "downloads.heading": "Download Resources",
+    "cta.paragraph": "Learn more about our history, culture, and community direction.",
+  });
+
   const { preview, openPreview, closePreview } = useDocumentPreview();
 
   useEffect(() => {
@@ -40,7 +51,7 @@ export default function VisionFuture() {
       <Navbar />
 
       <SimplePageHeader
-        heading="Our Vision & Future"
+        heading={get("hero.heading")}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About", href: "/about" },
@@ -53,7 +64,7 @@ export default function VisionFuture() {
         <div className="container">
           <div className="max-w-3xl mx-auto text-center scroll-reveal">
             <p className="text-lg leading-relaxed" style={{ fontFamily: "Lora, serif", color: "#333" }}>
-              Ulkatcho First Nation's strategic direction is guided by our values, our connection to the land, and the priorities identified by community members. The plans below outline how we are building a healthy, vibrant, and sustainable future for all generations.
+              {get("intro.paragraph")}
             </p>
           </div>
         </div>
@@ -63,10 +74,10 @@ export default function VisionFuture() {
       <section className="py-14" style={{ backgroundColor: "#c8d5e0" }}>
         <div className="container">
           <div className="text-center mb-10 scroll-reveal">
-            <div className="ufn-section-label mb-3">Our Strategic Plan</div>
+            <div className="ufn-section-label mb-3">{get("strategic_plan.label")}</div>
             <div className="ufn-divider mx-auto" />
             <h2 className="mt-4" style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: "#1a2e5a" }}>
-              Key Elements of the Strategic Plan
+              {get("strategic_plan.heading")}
             </h2>
           </div>
           <div className="max-w-4xl mx-auto scroll-reveal">
@@ -97,9 +108,9 @@ export default function VisionFuture() {
                 <FileText size={22} style={{ color: "#c9a227" }} />
               </div>
               <div>
-                <div className="ufn-section-label mb-1">Documents</div>
+                <div className="ufn-section-label mb-1">{get("downloads.label")}</div>
                 <h2 style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.85rem", color: "#1a2e5a" }}>
-                  Download Resources
+                  {get("downloads.heading")}
                 </h2>
               </div>
             </div>
@@ -138,7 +149,7 @@ export default function VisionFuture() {
       <section className="py-14" style={{ backgroundColor: "#c8d5e0" }}>
         <div className="container text-center scroll-reveal">
           <p className="mb-6" style={{ fontFamily: "Lora, serif", color: "#555", fontSize: "1.05rem" }}>
-            Learn more about our history, culture, and community direction.
+            {get("cta.paragraph")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/about">
