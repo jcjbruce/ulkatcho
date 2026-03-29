@@ -11,7 +11,7 @@ type AuthContextType = {
   role: UserRole;
   isAdmin: boolean;
   isMember: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+  signIn: (email: string, password: string) => Promise<{ error: string | null; role: UserRole }>;
   signOut: () => Promise<void>;
 };
 
@@ -61,8 +61,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error: error?.message ?? null };
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) return { error: error.message, role: null as UserRole };
+    // Fetch role immediately so redirect can happen synchronously
+    const r = data.user ? await fetchUserRole(data.user.id) : null;
+    setRole(r);
+    return { error: null, role: r };
   };
 
   const signOut = async () => {

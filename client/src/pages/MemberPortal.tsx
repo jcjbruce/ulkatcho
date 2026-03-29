@@ -32,14 +32,15 @@ export default function MemberPortal() {
     setError("");
     setSubmitting(true);
 
-    const { error: authError } = await signIn(email, password);
+    const { error: authError, role } = await signIn(email, password);
     setSubmitting(false);
 
     if (authError) {
       setError("Invalid email or password. Please try again.");
       return;
     }
-    // Auth state change will trigger redirect via useEffect
+    // Redirect immediately based on role returned from signIn
+    setLocation(role === "admin" ? "/admin" : "/member-dashboard");
   };
 
   const handleForgotPassword = async () => {
